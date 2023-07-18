@@ -15,6 +15,7 @@ async function bootstrap() {
   app.useGlobalFilters(new MongoExceptionFilter); // Use Mongo exception filter
   app.useGlobalFilters(new ErrorExceptionFilter); // Use general exception filter
   app.setGlobalPrefix(globalPrefix);
+  app.enableCors();
   const port = process.env.PORT || 3000;
   await app.listen(port);
   Logger.log(

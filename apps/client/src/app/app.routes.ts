@@ -20,5 +20,10 @@ export const appRoutes: Route[] = [
     component: AccountDetailComponent,
     data: { title: 'Account Detail' },
   },
-  { path: '**', component: NotFoundComponent },
+  {
+    path: '**',
+    redirectTo: '/accounts',
+    pathMatch: 'full',
+    data: { title: 'Accounts' },
+  },
 ];

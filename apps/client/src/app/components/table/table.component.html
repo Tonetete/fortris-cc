@@ -1,0 +1,23 @@
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <ng-container *ngFor="let col of columns;" matColumnDef="{{col}}">
+        <th mat-header-cell *matHeaderCellDef>{{displayedColumns[col] | titlecase}}</th>
+        <td mat-cell *matCellDef="let element">
+            <ng-container [ngTemplateOutlet]="getTemplate(col, element)"
+                [ngTemplateOutletContext]="{ element: element, col: col }">
+            </ng-container>
+        </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columns"></tr>
+    <tr [attr.data-id]="element._id" (click)="rowClicked($event)" mat-row
+        *matRowDef="let element; let row; columns: columns">
+    </tr>
+</table>
+
+<ng-template #dateTemplate let-col="col" let-element="element">
+    {{ element[col] | date: 'dd/MM/yyyy HH:mm:ss' }}
+</ng-template>
+
+<ng-template #defaultTemplate let-col="col" let-element="element">
+    {{ element[col] }}
+</ng-template>

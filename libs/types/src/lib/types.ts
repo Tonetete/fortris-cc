@@ -1,12 +1,12 @@
 export interface Account {
-  _id: string;
+  _id?: string;
   account_name: string;
   tag: string;
   category: string;
   balance: number;
   available_balance: number;
-  created_at: Date;
-  updated_at: Date;
+  created_at?: Date;
+  updated_at?: Date;
 }
 
 export interface Transaction {
