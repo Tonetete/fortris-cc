@@ -1,4 +1,4 @@
-import { Transaction } from "../types/d";
+import { Transaction } from "@fortris-cc/types";
 
 
 export const getTransactions = (): Transaction[] => [

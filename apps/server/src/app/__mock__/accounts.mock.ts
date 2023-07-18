@@ -1,4 +1,4 @@
-import { Account } from "../types/d";
+import { Account } from "@fortris-cc/types";
 
 export const getAccounts = (): Account[] => [
   {
