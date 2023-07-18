@@ -14,7 +14,6 @@ export class TransactionsController {
 
   @Get()
   findAll() {
-    console.log('findAll');
     return this.transactionsService.findAll();
   }
 
