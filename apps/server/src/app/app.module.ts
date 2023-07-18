@@ -6,10 +6,13 @@ import { AppService } from './app.service';
 import { AccountsModule } from './accounts/accounts.module';
 
 import * as settings from '../../settings.json';
+import { Transactions } from '../transactions/entities/transaction.entity';
+import { TransactionsModule } from '../transactions/transactions.module';
 
 @Module({
   imports: [
     AccountsModule,
+    TransactionsModule,
     MongooseModule.forRoot(settings['DATABASE_URI']),
   ],
   controllers: [AppController],
