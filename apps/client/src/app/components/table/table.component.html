@@ -11,8 +11,13 @@
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="columns"></tr>
-    <tr [attr.data-id]="element._id" (click)="rowClicked($event)" mat-row
-        *matRowDef="let element; let row; columns: columns">
+    <tr [ngClass]="{
+        'increase': rowBackgroundPriceStyleIncrease === true,
+        'decrease': rowBackgroundPriceStyleIncrease === false,
+        'pointer': enablePointerCssClass}"
+        [attr.data-id]="element._id" 
+        (click)="rowClicked($event)" 
+        mat-row *matRowDef="let element; let row; columns: columns">
     </tr>
 </table>
 

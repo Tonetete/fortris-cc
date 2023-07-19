@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@fortris-cc/constants": ["libs/constants/src/index.ts"],
       "@fortris-cc/types": ["libs/types/src/index.ts"]
     }
   },

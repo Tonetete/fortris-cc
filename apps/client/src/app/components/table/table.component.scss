@@ -2,8 +2,38 @@ th {
     text-align: right;
 }
 
+tr.cdk-row.pointer {
+    cursor: pointer;
+}
+
 .display-cell {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
 }
+
+@keyframes fade-out-bg-decrease {
+    0% {
+      background-color: #fc392b;
+    }
+    100% {
+      background-color: #fff;
+    }
+  }
+  
+  tr.decrease {
+    animation: fade-out-bg-decrease 1.5s linear;
+  }
+
+@keyframes fade-out-bg-increase {
+    0% {
+      background-color: #0ab42e;
+    }
+    100% {
+      background-color: #fff;
+    }
+  }
+  
+  tr.increase {
+    animation: fade-out-bg-increase 1.5s linear;
+  }

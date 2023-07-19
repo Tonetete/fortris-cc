@@ -8,6 +8,7 @@ import {
   TemplateRef,
   ViewChild,
 } from '@angular/core';
+import { DELAY_BACKGROUND_COLOR_CHANGE } from '@fortris-cc/constants';
 import { USDBTCPrice } from 'libs/types/src/lib/types';
 
 interface TemplateRefTable {
@@ -42,8 +43,6 @@ export class TableComponent<T> implements OnChanges {
 
   rowBackgroundPriceStyleIncrease: boolean | null = null;
 
-  FREQUENCY_REFRESH_USD_BTC_PRICE = 30000;
-
   constructor() {}
 
   ngOnChanges(changes: SimpleChanges) {
@@ -62,7 +61,7 @@ export class TableComponent<T> implements OnChanges {
         (currUSDBTCPrice.rate_float || 0) > (prevUSDBTCPrice.rate_float || 0);
       setTimeout(() => {
         this.rowBackgroundPriceStyleIncrease = null;
-      }, this.FREQUENCY_REFRESH_USD_BTC_PRICE);
+      }, DELAY_BACKGROUND_COLOR_CHANGE);
     }
   }
 

@@ -1,14 +1,12 @@
 import {
   WebSocketGateway,
   SubscribeMessage,
-  MessageBody,
   WebSocketServer,
 } from '@nestjs/websockets';
 import { TrackerService } from './tracker.service';
 import { USDBTCPrice } from '@fortris-cc/types';
+import { FREQUENCY_BTC_PRICE_REFRESH } from '@fortris-cc/constants';
 import { Logger } from '@nestjs/common';
-
-const FREQUENCY_BTC_PRICE = 30000;
 
 @WebSocketGateway({
   namespace: 'btc-tracker',
@@ -37,7 +35,7 @@ export class TrackerGateway {
 
     setInterval(() => {
       this.emitUSDBTCPrice();
-    }, FREQUENCY_BTC_PRICE);
+    }, FREQUENCY_BTC_PRICE_REFRESH);
   }
 
   emitUSDBTCPrice() {

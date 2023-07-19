@@ -4,5 +4,7 @@
   [displayedColumns]="displayedColumns"
   [dataSource]="dataSource"
   [USDBTCPrice]="USDBTCPrice"
+  [enablePointerCssClass]="true"
+  (rowClickedCb)="rowClicked($event)"
   >
 </fortris-table>
