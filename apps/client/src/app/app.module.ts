@@ -30,6 +30,7 @@ const config: SocketIoConfig = { url: getBTCTrackerBaseUrl(), options: {} };
     TableComponent,
     BtcToUsdFormatPipe,
     NotFoundComponent,
+    TopbarComponent,
   ],
   imports: [
     HttpClientModule,
