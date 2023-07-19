@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'fotris-account-detail',
+  selector: 'fortris-account-detail',
   templateUrl: './account-detail.component.html',
   styleUrls: ['./account-detail.component.scss']
 })

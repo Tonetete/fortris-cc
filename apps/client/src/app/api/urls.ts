@@ -1,6 +1,8 @@
-const getApiBaseUrl = () => `http://localhost:3000`;
+const getBaseUrl = () => `http://localhost:3000`;
+const getApiBaseUrl = () => `${getBaseUrl()}/api`;
 
-export const getAccountsBaseUrl = () => `${getApiBaseUrl()}/account`;
+export const getBTCTrackerBaseUrl = () => `${getBaseUrl()}/btc-tracker`;
+export const getAccountsBaseUrl = () => `${getApiBaseUrl()}/accounts`;
 export const getTransactionBaseUrl = () => `${getApiBaseUrl()}/transactions`;
 
 export const getAccountsUrl = () => `${getAccountsBaseUrl()}`;

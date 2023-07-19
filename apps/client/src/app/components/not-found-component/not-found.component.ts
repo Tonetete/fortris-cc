@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'fotris-not-found',
+  selector: 'fortris-not-found',
   templateUrl: './not-found.component.html',
   styleUrls: ['./not-found.component.css']
 })

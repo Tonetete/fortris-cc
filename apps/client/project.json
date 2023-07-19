@@ -2,7 +2,7 @@
   "name": "client",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
-  "prefix": "fotris",
+  "prefix": "fortris",
   "sourceRoot": "apps/client/src",
   "tags": ["type:app", "scope:client"],
   "targets": {
