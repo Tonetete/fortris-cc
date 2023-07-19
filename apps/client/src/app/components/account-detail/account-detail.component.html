@@ -2,16 +2,15 @@
     <section id="details">
         <h3>{{ account?.account_name }}</h3>
         <p>{{ account?.category | titlecase }} account</p>
-        <h1>{{ account?.balance }} BTC ({{ account?.balance | btcToUsdFormat : USDBTCPrice }})</h1>
-        <p>Available balance: {{ account?.available_balance }}</p>
+        <div>
+            <p class="green"><span class="large">{{ account?.balance }} BTC</span>&nbsp;<span class="medium">({{
+                    account?.balance | btcToUsdFormat : USDBTCPrice }})</span></p>
+        </div>
+        <p>Available balance: {{ account?.balance }} BTC ({{ account?.balance | btcToUsdFormat : USDBTCPrice }})</p>
     </section>
     <section id="transactions">
-        <fortris-table 
-            [columns]="columns" 
-            [displayedColumns]="displayedColumns" 
-            [btcUsdFormatColums]="btcUsdFormatColums"
-            [dataSource]="dataSource"
-            [USDBTCPrice]="USDBTCPrice">
+        <fortris-table [columns]="columns" [displayedColumns]="displayedColumns"
+            [btcUsdFormatColums]="btcUsdFormatColums" [dataSource]="dataSource" [USDBTCPrice]="USDBTCPrice">
         </fortris-table>
     </section>
 </div>
