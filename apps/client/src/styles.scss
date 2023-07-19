@@ -2,12 +2,19 @@
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
 @use '@angular/material' as mat;
+
+@import '../../../libs/constants/src/lib/variables.scss';
 // Plus imports for other components in your app.
 
 // Include the common styles for Angular Material. We include this here so that you only
 // have to load a single css file for Angular Material in your app.
 // Be sure that you only ever include this mixin once!
 @include mat.core();
+
+$my-typography: mat.define-typography-config($font-family: '"Open Sans", "Helvetica Neue", sans-serif');
+    
+@include mat.typography-hierarchy($my-typography);
+
 
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
@@ -25,7 +32,8 @@ $client-theme: mat.define-light-theme((
     primary: $client-primary,
     accent: $client-accent,
     warn: $client-warn,
-  )
+  ),
+  typography: $my-typography
 ));
 
 // Include theme styles for core and each component used in your app.
@@ -35,12 +43,32 @@ $client-theme: mat.define-light-theme((
 
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; background-color: #ebebebeb; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, body { height: 100%; background-color: $grey; }
+body { margin: 0; font-family: 'Open Sans', "Helvetica Neue", sans-serif; }
 
 section {
-  background-color: #fff;
+  background-color: $white;
   margin: 20px;
   border-radius: 3px;
   box-shadow: -1px 5px 9px 0px rgba(199,199,199,1);
+}
+
+.light {
+  font-weight: 100;
+}
+
+.bold {
+  font-weight: 700;
+}
+
+.large {
+  font-size: 2rem;
+}
+
+.medium {
+  font-size: 1.5rem;
+}
+
+.small {
+  font-size: 0.5rem;
 }

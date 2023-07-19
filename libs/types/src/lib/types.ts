@@ -44,3 +44,5 @@ export type AccountDisplayColumns = Pick<
   Account,
   'account_name' | 'category' | 'tag' | 'balance' | 'available_balance'
 >;
+
+export type BreadcrumbPath = { path: string, alias: string }[];
