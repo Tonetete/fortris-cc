@@ -10,8 +10,8 @@ db.accounts.insertMany([
     account_name: "Account User 1",
     tag: "test",
     category: "treasury",
-    balance: 0.0,
-    available_balance: 0.0,
+    balance: 11.343,
+    available_balance: 2.555,
     created_at: new Date(),
     updated_at: new Date(),
   },
@@ -20,8 +20,8 @@ db.accounts.insertMany([
     account_name: "Account User 2",
     tag: "test",
     category: "treasury",
-    balance: 0.0,
-    available_balance: 0.0,
+    balance: 3.8003,
+    available_balance: 6.703,
     created_at: new Date(),
     updated_at: new Date(),
   },
@@ -30,8 +30,8 @@ db.accounts.insertMany([
     account_name: "Account User 3",
     tag: "test",
     category: "treasury",
-    balance: 0.0,
-    available_balance: 0.0,
+    balance: 2.123,
+    available_balance: 4.634,
     created_at: new Date(),
     updated_at: new Date(),
   },
@@ -40,8 +40,8 @@ db.accounts.insertMany([
     account_name: "Account User 4",
     tag: "test",
     category: "treasury",
-    balance: 50.75,
-    available_balance: 0,
+    balance: 5.75,
+    available_balance: 2.3,
     created_at: "2023-07-12T18:06:37.722Z",
     updated_at: "2023-07-12T18:06:37.722Z"
   },
@@ -50,8 +50,8 @@ db.accounts.insertMany([
     account_name: "Account User 5",
     tag: "test",
     category: "treasury",
-    balance: 1000,
-    available_balance: 0,
+    balance: 1.456,
+    available_balance: 3.56,
     created_at: "2023-07-12T18:06:37.722Z",
     updated_at: "2023-07-12T18:06:37.722Z"
   },
@@ -60,8 +60,8 @@ db.accounts.insertMany([
     account_name: "Account User 6",
     tag: "test",
     category: "treasury",
-    balance: 250.99,
-    available_balance: 0,
+    balance: 3.99,
+    available_balance: 5.9834,
     created_at: "2023-07-12T18:06:37.722Z",
     updated_at: "2023-07-12T18:06:37.722Z"
   },
@@ -70,8 +70,8 @@ db.accounts.insertMany([
     account_name: "Account User 7",
     tag: "test",
     category: "treasury",
-    balance: 75.25,
-    available_balance: 0,
+    balance: 5.24355,
+    available_balance: 4.8237,
     created_at: "2023-07-12T18:06:37.722Z",
     updated_at: "2023-07-12T18:06:37.722Z"
   },
@@ -80,8 +80,8 @@ db.accounts.insertMany([
     account_name: "Account User 8",
     tag: "test",
     category: "treasury",
-    balance: 500.55,
-    available_balance: 0,
+    balance: 1.55,
+    available_balance: 3.0934,
     created_at: "2023-07-12T18:06:37.722Z",
     updated_at: "2023-07-12T18:06:37.722Z"
   },
@@ -90,8 +90,8 @@ db.accounts.insertMany([
     account_name: "Account User 9",
     tag: "test",
     category: "treasury",
-    balance: 100,
-    available_balance: 0,
+    balance: 1.345,
+    available_balance: 6.34,
     created_at: "2023-07-12T18:06:37.722Z",
     updated_at: "2023-07-12T18:06:37.722Z"
   },
@@ -100,8 +100,8 @@ db.accounts.insertMany([
     account_name: "Account User 10",
     tag: "test",
     category: "treasury",
-    balance: 1000.75,
-    available_balance: 0,
+    balance: 0.75,
+    available_balance: 0.99,
     created_at: "2023-07-12T18:06:37.722Z",
     updated_at: "2023-07-12T18:06:37.722Z"
   },
@@ -110,8 +110,8 @@ db.accounts.insertMany([
     account_name: "Account User 11",
     tag: "test",
     category: "treasury",
-    balance: 350,
-    available_balance: 0,
+    balance: 4.923,
+    available_balance: 4.831,
     created_at: "2023-07-12T18:06:37.722Z",
     updated_at: "2023-07-12T18:06:37.722Z"
   },
@@ -120,8 +120,8 @@ db.accounts.insertMany([
     account_name: "Account User 12",
     tag: "test",
     category: "treasury",
-    balance: 75,
-    available_balance: 0,
+    balance: 7.545,
+    available_balance: 3.726,
     created_at: "2023-07-12T18:06:37.722Z",
     updated_at: "2023-07-12T18:06:37.722Z"
   },
@@ -130,8 +130,8 @@ db.accounts.insertMany([
     account_name: "Account User 13",
     tag: "test",
     category: "treasury",
-    balance: 450.99,
-    available_balance: 0,
+    balance: 1.99,
+    available_balance: 4.21,
     created_at: "2023-07-12T18:06:37.722Z",
     updated_at: "2023-07-12T18:06:37.722Z"
   },
@@ -140,8 +140,8 @@ db.accounts.insertMany([
     account_name: "Account User 14",
     tag: "test",
     category: "treasury",
-    balance: 125.25,
-    available_balance: 0,
+    balance: 1.22325,
+    available_balance: 1.239,
     created_at: "2023-07-12T18:06:37.722Z",
     updated_at: "2023-07-12T18:06:37.722Z"
   },
@@ -150,8 +150,8 @@ db.accounts.insertMany([
     account_name: "Account User 15",
     tag: "test",
     category: "treasury",
-    balance: 800.55,
-    available_balance: 0,
+    balance: 4.3455,
+    available_balance: 2.37,
     created_at: "2023-07-12T18:06:37.722Z",
     updated_at: "2023-07-12T18:06:37.722Z"
   },
@@ -381,7 +381,7 @@ db.transactions.insertMany([
   created_at: new Date()
 },
 {
-  _id: ObjectId("5f9d9b3b9d3b1d0b1c9d4429"),
+  _id: ObjectId("5f9d9b3b9d3b1d0b1c9d4431"),
   account_id: "5f9d9b3b9d3b1d0b1c9d4407",
   order_id: "test19",
   order_code: "treasury19",
@@ -392,7 +392,7 @@ db.transactions.insertMany([
   created_at: new Date()
 },
 {
-  _id: ObjectId("5f9d9b3b9d3b1d0b1c9d4430"),
+  _id: ObjectId("5f9d9b3b9d3b1d0b1c9d4432"),
   account_id: "5f9d9b3b9d3b1d0b1c9d4407",
   order_id: "test20",
   order_code: "treasury20",
@@ -403,7 +403,7 @@ db.transactions.insertMany([
   created_at: new Date()
 },
 {
-  _id: ObjectId("5f9d9b3b9d3b1d0b1c9d4431"),
+  _id: ObjectId("5f9d9b3b9d3b1d0b1c9d4433"),
   account_id: "5f9d9b3b9d3b1d0b1c9d4407",
   order_id: "test21",
   order_code: "treasury21",
@@ -414,7 +414,7 @@ db.transactions.insertMany([
   created_at: new Date()
 },
 {
-  _id: ObjectId("5f9d9b3b9d3b1d0b1c9d4432"),
+  _id: ObjectId("5f9d9b3b9d3b1d0b1c9d4434"),
   account_id: "5f9d9b3b9d3b1d0b1c9d4408",
   order_id: "test22",
   order_code: "treasury22",
@@ -425,7 +425,7 @@ db.transactions.insertMany([
   created_at: new Date()
 },
 {
-  _id: ObjectId("5f9d9b3b9d3b1d0b1c9d4433"),
+  _id: ObjectId("5f9d9b3b9d3b1d0b1c9d4435"),
   account_id: "5f9d9b3b9d3b1d0b1c9d4408",
   order_id: "test23",
   order_code: "treasury23",
@@ -436,7 +436,7 @@ db.transactions.insertMany([
   created_at: new Date()
 },
 {
-  _id: ObjectId("5f9d9b3b9d3b1d0b1c9d4434"),
+  _id: ObjectId("5f9d9b3b9d3b1d0b1c9d4436"),
   account_id: "5f9d9b3b9d3b1d0b1c9d4408",
   order_id: "test24",
   order_code: "treasury24",
@@ -446,8 +446,160 @@ db.transactions.insertMany([
   balance: 350.50,
   created_at: new Date()
 },
-
- 
+{
+  _id: ObjectId("5f9d9b3b9d3b1d0b1c9d4437"),
+  account_id: "5f9d9b3b9d3b1d0b1c9d4409",
+  order_id: "test25",
+  order_code: "treasury25",
+  transaction_type: "Payment Received",
+  debit: "",
+  credit: 25.25,
+  balance: 350.50,
+  created_at: new Date()
+},
+{
+  _id: ObjectId("5f9d9b3b9d3b1d0b1c9d4438"),
+  account_id: "5f9d9b3b9d3b1d0b1c9d4409",
+  order_id: "test26",
+  order_code: "treasury26",
+  transaction_type: "Payment Received",
+  debit: "",
+  credit: 25.25,
+  balance: 350.50,
+  created_at: new Date()
+},
+{
+  _id: ObjectId("5f9d9b3b9d3b1d0b1c9d4439"),
+  account_id: "5f9d9b3b9d3b1d0b1c9d4410",
+  order_id: "test27",
+  order_code: "treasury27",
+  transaction_type: "Payment Received",
+  debit: "",
+  credit: 25.25,
+  balance: 350.50,
+  created_at: new Date()
+},
+{
+  _id: ObjectId("5f9d9b3b9d3b1d0b1c9d4440"),
+  account_id: "5f9d9b3b9d3b1d0b1c9d4410",
+  order_id: "test28",
+  order_code: "treasury28",
+  transaction_type: "Payment Received",
+  debit: "",
+  credit: 25.25,
+  balance: 350.50,
+  created_at: new Date()
+},
+{
+  _id: ObjectId("5f9d9b3b9d3b1d0b1c9d4441"),
+  account_id: "5f9d9b3b9d3b1d0b1c9d4411",
+  order_id: "test29",
+  order_code: "treasury29",
+  transaction_type: "Payment Received",
+  debit: "",
+  credit: 25.25,
+  balance: 350.50,
+  created_at: new Date()
+},
+{
+  _id: ObjectId("5f9d9b3b9d3b1d0b1c9d4442"),
+  account_id: "5f9d9b3b9d3b1d0b1c9d4411",
+  order_id: "test31",
+  order_code: "treasury31",
+  transaction_type: "Payment Received",
+  debit: "",
+  credit: 25.25,
+  balance: 350.50,
+  created_at: new Date()
+},
+{
+  _id: ObjectId("5f9d9b3b9d3b1d0b1c9d4443"),
+  account_id: "5f9d9b3b9d3b1d0b1c9d4412",
+  order_id: "test30",
+  order_code: "treasury30",
+  transaction_type: "Payment Received",
+  debit: "",
+  credit: 25.25,
+  balance: 350.50,
+  created_at: new Date()
+},
+{
+  _id: ObjectId("5f9d9b3b9d3b1d0b1c9d4444"),
+  account_id: "5f9d9b3b9d3b1d0b1c9d4412",
+  order_id: "test32",
+  order_code: "treasury32",
+  transaction_type: "Payment Received",
+  debit: "",
+  credit: 25.25,
+  balance: 350.50,
+  created_at: new Date()
+},
+{
+  _id: ObjectId("5f9d9b3b9d3b1d0b1c9d4445"),
+  account_id: "5f9d9b3b9d3b1d0b1c9d4413",
+  order_id: "test33",
+  order_code: "treasury33",
+  transaction_type: "Payment Received",
+  debit: "",
+  credit: 25.25,
+  balance: 350.50,
+  created_at: new Date()
+},
+{
+  _id: ObjectId("5f9d9b3b9d3b1d0b1c9d4446"),
+  account_id: "5f9d9b3b9d3b1d0b1c9d4413",
+  order_id: "test44",
+  order_code: "treasury44",
+  transaction_type: "Payment Received",
+  debit: "",
+  credit: 25.25,
+  balance: 350.50,
+  created_at: new Date()
+},
+{
+  _id: ObjectId("5f9d9b3b9d3b1d0b1c9d4447"),
+  account_id: "5f9d9b3b9d3b1d0b1c9d4414",
+  order_id: "test34",
+  order_code: "treasury34",
+  transaction_type: "Payment Received",
+  debit: "",
+  credit: 25.25,
+  balance: 350.50,
+  created_at: new Date()
+},
+{
+  _id: ObjectId("5f9d9b3b9d3b1d0b1c9d4448"),
+  account_id: "5f9d9b3b9d3b1d0b1c9d4414",
+  order_id: "test35",
+  order_code: "treasury35",
+  transaction_type: "Payment Received",
+  debit: "",
+  credit: 25.25,
+  balance: 350.50,
+  created_at: new Date()
+},
+{
+  _id: ObjectId("5f9d9b3b9d3b1d0b1c9d4449"),
+  account_id: "5f9d9b3b9d3b1d0b1c9d4415",
+  order_id: "test36",
+  order_code: "treasury36",
+  transaction_type: "Payment Received",
+  debit: "",
+  credit: 25.25,
+  balance: 350.50,
+  created_at: new Date()
+},
+{
+  _id: ObjectId("5f9d9b3b9d3b1d0b1c9d4450"),
+  account_id: "5f9d9b3b9d3b1d0b1c9d4415",
+  order_id: "test37",
+  order_code: "treasury37",
+  transaction_type: "Payment Received",
+  debit: "",
+  credit: 25.25,
+  balance: 350.50,
+  created_at: new Date()
+},
 ]);
 
 db.transactions.createIndex({ "order_id": 1 }, { unique: true });
