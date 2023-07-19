@@ -1,3 +1,5 @@
+@import '../../../../../../libs/constants/src/lib/variables.scss';
+
 th {
     text-align: right;
 }
@@ -14,10 +16,10 @@ tr.cdk-row.pointer {
 
 @keyframes fade-out-bg-decrease {
     0% {
-      background-color: #fc392b;
+      background-color: $red;
     }
     100% {
-      background-color: #fff;
+      background-color: $white;
     }
   }
   
@@ -27,10 +29,10 @@ tr.cdk-row.pointer {
 
 @keyframes fade-out-bg-increase {
     0% {
-      background-color: #0ab42e;
+      background-color: $green;
     }
     100% {
-      background-color: #fff;
+      background-color: $white;
     }
   }
   

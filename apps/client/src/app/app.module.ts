@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { RouterModule } from '@angular/router';
+import { RouterModule, provideRouter, withDebugTracing } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -18,6 +18,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { TrackerService } from './services/tracker.service';
 import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io';
 import { getBTCTrackerBaseUrl } from './api/urls';
+import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
+import { TopbarComponent } from './components/topbar/topbar.component';
 
 const config: SocketIoConfig = { url: getBTCTrackerBaseUrl(), options: {} };
 
@@ -26,6 +28,7 @@ const config: SocketIoConfig = { url: getBTCTrackerBaseUrl(), options: {} };
     AppComponent,
     AccountComponent,
     AccountDetailComponent,
+    BreadcrumbComponent,
     HeaderComponent,
     TableComponent,
     BtcToUsdFormatPipe,
@@ -35,7 +38,7 @@ const config: SocketIoConfig = { url: getBTCTrackerBaseUrl(), options: {} };
   imports: [
     HttpClientModule,
     BrowserModule,
-    RouterModule.forRoot(appRoutes, { initialNavigation: 'enabledBlocking' }),
+    RouterModule.forRoot(appRoutes),
     MatIconModule,
     MatTableModule,
     MatToolbarModule,

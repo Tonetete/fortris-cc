@@ -8,22 +8,16 @@ export const appRoutes: Route[] = [
     path: '',
     redirectTo: '/accounts',
     pathMatch: 'full',
-    data: { title: 'Accounts' },
+    data: { title: 'Home', breadcrumb: { path: '' } },
   },
   {
     path: 'accounts',
     component: AccountComponent,
-    data: { title: 'Accounts' },
+    data: { title: 'Accounts', breadcrumb: { path: 'accounts' } },
   },
   {
-    path: 'account-detail/:id',
+    path: 'accounts/account-detail/:id',
     component: AccountDetailComponent,
-    data: { title: 'Account Detail' },
-  },
-  {
-    path: '**',
-    redirectTo: '/accounts',
-    pathMatch: 'full',
-    data: { title: 'Accounts' },
+    data: { title: 'Account Details', breadcrumb: { path: 'account-detail' } },
   },
 ];

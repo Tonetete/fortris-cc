@@ -1,22 +1,28 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Account, Transaction, TransactionDisplayColumns, USDBTCPrice } from '@fortris-cc/types';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import {
+  Account,
+  Transaction,
+  TransactionDisplayColumns,
+  USDBTCPrice,
+} from '@fortris-cc/types';
 import { combineLatest, filter } from 'rxjs';
 import { AccountService } from '../../services/account.service';
 import { TrackerService } from '../../services/tracker.service';
 import { DELAY_BACKGROUND_COLOR_CHANGE } from '@fortris-cc/constants';
+import { BreadcrumbService } from '../../services/breadcrumb.service';
 
 @Component({
   selector: 'fortris-account-detail',
   templateUrl: './account-detail.component.html',
-  styleUrls: ['./account-detail.component.scss']
+  styleUrls: ['./account-detail.component.scss'],
 })
 export class AccountDetailComponent {
   account: Account | undefined;
   dataSource: Transaction[] = [];
   btcUsdFormatColums: string[] = ['credit', 'balance'];
   columns: Array<keyof Transaction> = [
-    'created_at', 
+    'created_at',
     'order_id',
     'order_code',
     'transaction_type',
@@ -39,7 +45,9 @@ export class AccountDetailComponent {
   constructor(
     private accountService: AccountService,
     private trackerService: TrackerService,
-    private route: ActivatedRoute
+    private breadcrumbService: BreadcrumbService,
+    private route: ActivatedRoute,
+    private router: Router
   ) {
     this.route.params.subscribe((params) => {
       combineLatest({
@@ -58,6 +66,13 @@ export class AccountDetailComponent {
           this.dataSource = getTransactionsByAccountId;
         });
     });
+
+    this.router.events
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe((event) => {
+        const { url } = event as NavigationEnd;
+        this.breadcrumbService.setBreadcrumbPath(url, this.router);
+      });
   }
 
   ngOnInit() {
@@ -65,12 +80,17 @@ export class AccountDetailComponent {
     this.trackerService.USDBTCPrice$.subscribe((price: USDBTCPrice) => {
       const { rate_float } = price;
       const { rate_float: oldRate_float } = this.USDBTCPrice || {};
-      
+
       if (rate_float !== oldRate_float) {
-        this.rowBackgroundPriceStyleIncrease = (rate_float || 0) > (oldRate_float || 0);
+        this.rowBackgroundPriceStyleIncrease =
+          (rate_float || 0) > (oldRate_float || 0);
       }
 
       this.USDBTCPrice = price;
     });
+  }
+
+  ngOnDestroy() {
+    this.accountService.clear();
   }
 }
