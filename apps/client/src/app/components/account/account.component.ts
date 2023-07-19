@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Account, USDBTCPrice } from '@fortris-cc/types';
+import { Account, AccountDisplayColumns, USDBTCPrice } from '@fortris-cc/types';
 import { AccountService } from '../../services/account.service';
 import { TrackerService } from '../../services/tracker.service';
 
 @Component({
   selector: 'fortris-account',
   templateUrl: './account.component.html',
-  styleUrls: ['./account.component.scss']
+  styleUrls: ['./account.component.scss'],
 })
 export class AccountComponent {
   btcUsdFormatColums: string[] = ['balance', 'available_balance'];
@@ -19,7 +19,7 @@ export class AccountComponent {
     'balance',
     'available_balance',
   ];
-  displayedColumns: { [key in keyof Account]: string } = {
+  displayedColumns: { [key in keyof AccountDisplayColumns]: string } = {
     account_name: 'Account Name',
     category: 'Category',
     tag: 'Tags',
@@ -47,4 +47,3 @@ export class AccountComponent {
     this.router.navigate(['account-detail', account_id]);
   }
 }
-
