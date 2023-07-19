@@ -48,4 +48,8 @@ export class AccountService {
     return this.transactionsBehaviourSubject$;
   }
 
+  clear() {
+    this._transactionsBehaviourSubject.next([]);
+  }
+
 }
