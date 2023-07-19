@@ -1,0 +1,6 @@
+<div>
+    <ng-container *ngFor="let i of breadcrumbItems; let last = last">
+        <span class="bold" *ngIf="last">{{ i?.alias }}</span>
+        <span class="cursor-pointer" [routerLink]="[i?.path]" *ngIf="!last">{{ i?.alias }} / </span>
+    </ng-container>
+</div>

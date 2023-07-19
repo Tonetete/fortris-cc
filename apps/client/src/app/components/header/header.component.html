@@ -1,9 +1,10 @@
-<mat-toolbar color="primary">
-    <div class="header__content">
-        <span>{{ title }}</span>
-        <mat-icon svgIcon="btc-icon"></mat-icon>
-        <div>
-            <span>{{ 1 | btcToUsdFormat : USDBTCPrice }}</span>
+<!-- <mat-toolbar color="primary"> -->
+    <div class="header__wrapper">
+        <div class="header__content">
+            <h1 class="light">{{ title }}</h1>
+        </div>
+        <div class="header__breadcrumb">
+            <fortris-breadcrumb></fortris-breadcrumb>
         </div>
     </div>
-</mat-toolbar>
+<!-- </mat-toolbar> -->

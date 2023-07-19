@@ -1,8 +1,11 @@
+@import '../../../../../../libs/constants/src/lib/variables.scss';
+
 .header {
-    &__content {
-        display: grid;
-        align-items: center;
+    &__wrapper {
+        display: flex;
+        flex-direction: column;
         width: 100%;
-        grid-template-columns: 93% 0.5fr 1.25fr;
+        padding: 20px;
+        background-color: $white;
     }
 }
