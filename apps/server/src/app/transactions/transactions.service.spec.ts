@@ -110,6 +110,22 @@ describe('TransactionsService', () => {
       expect(result.balance).toBe(payload.balance);
     });
   });
+  
+  describe('findByAccountId', () => {
+    it('SHOULD return all transactions WHEN function is called for an account id', async () => {
+      const accounts = getAccounts();
+      const transactionsByAccountId = getTransactions().filter(
+        (t) => t.account_id === accounts[1]._id
+      );
+      const result = await service.findByAccountId(accounts[1]._id);
+      const transactionMatchAllAccountIds = result.every(
+        (t) => t.account_id === accounts[1]._id
+      );
+
+      expect(transactionMatchAllAccountIds).toBe(true);
+      expect(result.length).toBe(transactionsByAccountId.length);
+    });
+  });
 
   describe('findOne', () => {
     it('SHOULD return a transaction passing an id WHEN function is called', async () => {
@@ -121,21 +137,6 @@ describe('TransactionsService', () => {
     });
   });
 
-  describe('findByAccountId', () => {
-    it('SHOULD return all transactions WHEN function is called for an account id', async () => {
-      const accounts = getAccounts();
-      const transactions = getTransactions().filter(
-        (t) => t.account_id === accounts[0]._id
-      );
-      const result = await service.findByAccountId(accounts[0]._id);
-      const transactionMatchAllAccountIds = result.every(
-        (t) => t.account_id === accounts[0]._id
-      );
-
-      expect(transactionMatchAllAccountIds).toBe(true);
-      expect(result.length).toBe(transactions.length);
-    });
-  });
 
   describe('update', () => {
     it('SHOULD update a transactions WHEN function is called for a transaction id', async () => {

@@ -19,7 +19,7 @@ import { BreadcrumbService } from '../../services/breadcrumb.service';
 export class AccountDetailComponent {
   account: Account | undefined;
   dataSource: Transaction[] = [];
-  btcUsdFormatColums: string[] = ['credit', 'balance'];
+  btcUsdFormatColums: string[] = ['credit', 'balance', 'debit'];
   columns: Array<keyof Transaction> = [
     'created_at',
     'order_id',

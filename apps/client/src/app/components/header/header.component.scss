@@ -2,6 +2,8 @@
 
 .header {
     &__wrapper {
+        border-top: 1px solid $grey-light;
+        border-bottom: 1px solid $grey-light;
         display: flex;
         flex-direction: column;
         width: 100%;

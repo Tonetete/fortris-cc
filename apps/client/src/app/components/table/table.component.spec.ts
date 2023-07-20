@@ -12,6 +12,8 @@ import { Account, AccountDisplayColumns } from '@fortris-cc/types';
 import { NgZone, SimpleChange, SimpleChanges } from '@angular/core';
 import { BtcToUsdFormatPipe } from '../../pipes/btc-to-usd-format.pipe';
 import { DELAY_BACKGROUND_COLOR_CHANGE } from '@fortris-cc/constants';
+import { MatSortModule } from '@angular/material/sort';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 type T = { [key: string]: unknown };
 
@@ -48,7 +50,11 @@ describe('TableComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [TableComponent, BtcToUsdFormatPipe],
-      imports: [MatTableModule],
+      imports: [
+        MatTableModule,
+        MatSortModule,
+        BrowserAnimationsModule.withConfig({ disableAnimations: true }),
+      ],
     });
     fixture = TestBed.createComponent(TableComponent) as ComponentFixture<
       TableComponent<Account>
@@ -84,7 +90,7 @@ describe('TableComponent', () => {
 
       expect(component.rowBackgroundPriceStyleIncrease).toBe(true);
     });
-    
+
     it('THEN if current USDBTCPrice is lower than previous changes SHOULD set rowBackgroundPriceStyleIncrease to true', () => {
       component.USDBTCPrice = {
         ...USDBTCPriceMock,
@@ -113,7 +119,7 @@ describe('TableComponent', () => {
         rate_float: 35.345,
         rate: '$35,345',
       };
-  
+
       const changes: SimpleChanges = {
         USDBTCPrice: new SimpleChange(
           USDBTCPriceMock, // previosValue
@@ -122,11 +128,11 @@ describe('TableComponent', () => {
         ),
       };
       component.ngOnChanges(changes);
-  
+
       expect(component.rowBackgroundPriceStyleIncrease).toBe(true); // Assuming it's set to true
 
       tick(DELAY_BACKGROUND_COLOR_CHANGE);
-  
+
       // After the timeout is flushed, the rowBackgroundPriceStyleIncrease should be set back to null
       expect(component.rowBackgroundPriceStyleIncrease).toBeNull();
     }));

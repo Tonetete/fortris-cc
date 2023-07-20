@@ -7,6 +7,7 @@ import { TrackerService } from './tracker.service';
 import { USDBTCPrice } from '@fortris-cc/types';
 import { FREQUENCY_BTC_PRICE_REFRESH } from '@fortris-cc/constants';
 import { Logger } from '@nestjs/common';
+import { Socket } from 'dgram';
 
 @WebSocketGateway({
   namespace: 'btc-tracker',
@@ -16,7 +17,7 @@ import { Logger } from '@nestjs/common';
 @WebSocketGateway()
 export class TrackerGateway {
 
-  @WebSocketServer() private server;
+  @WebSocketServer() private server: any;
   private logger: Logger = new Logger('TrackerGateway');
   private USDBTCPrice: USDBTCPrice = {
     rate_float: 0,

@@ -1,6 +1,6 @@
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+<table mat-table matSort (matSortChange)="sortData($event)" [dataSource]="sortedData" class="mat-elevation-z8">
     <ng-container *ngFor="let col of columns;" matColumnDef="{{col}}">
-        <th mat-header-cell class="right" *matHeaderCellDef>{{displayedColumns[col] | titlecase}}</th>
+        <th class="green" [mat-sort-header]="col" mat-header-cell class="right" *matHeaderCellDef>{{displayedColumns[col] | titlecase}}</th>
         <td mat-cell *matCellDef="let element">
             <div class="display-cell">
                 <ng-container [ngTemplateOutlet]="getTemplate(col, element)"

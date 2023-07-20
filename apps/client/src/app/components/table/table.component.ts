@@ -9,8 +9,9 @@ import {
   TemplateRef,
   ViewChild,
 } from '@angular/core';
+import { Sort } from '@angular/material/sort';
 import { DELAY_BACKGROUND_COLOR_CHANGE } from '@fortris-cc/constants';
-import { USDBTCPrice } from 'libs/types/src/lib/types';
+import { Account, USDBTCPrice } from 'libs/types/src/lib/types';
 
 interface TemplateRefTable {
   element: { [key: string]: unknown };
@@ -45,11 +46,13 @@ export class TableComponent<T> implements OnChanges {
   @Output() rowClickedCb = new EventEmitter<MouseEvent>();
 
   rowBackgroundPriceStyleIncrease: boolean | null = null;
+  sortedData: T[] = [];
 
   constructor(private cdr: ChangeDetectorRef) {}
 
   ngOnChanges(changes: SimpleChanges) {
     const {
+      dataSource: { currentValue: currDataSource } = { currentValue: null },
       USDBTCPrice: {
         currentValue: currUSDBTCPrice,
         previousValue: prevUSDBTCPrice,
@@ -65,6 +68,10 @@ export class TableComponent<T> implements OnChanges {
       setTimeout(() => {
         this.rowBackgroundPriceStyleIncrease = null;
       }, DELAY_BACKGROUND_COLOR_CHANGE);
+    }
+
+    if (currDataSource) {
+      this.sortedData = currDataSource.slice();
     }
     // Manually trigger change detection after resetting the property to avoid the ExpressionChangedAfterItHasBeenCheckedError
     this.cdr.detectChanges();
@@ -97,7 +104,21 @@ export class TableComponent<T> implements OnChanges {
     this.rowClickedCb.emit(event);
   }
 
-  ngOnDestroy() {
-    
+  sortData(sort: Sort) {
+    const data = this.dataSource.slice();
+    const sort2 = sort as unknown as Sort;
+
+    const isAsc = sort2.direction === 'asc';
+    const index = sort2.active as string;
+
+    this.sortedData = data.sort((a, b) =>
+      this.compare((a as any)[index], (b as any)[index], isAsc)
+    );
   }
+
+  compare(a: number | string, b: number | string, isAsc: boolean) {
+    return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+  }
+
+  ngOnDestroy() {}
 }

@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   ActivatedRoute,
   NavigationEnd,
@@ -66,7 +68,11 @@ describe('AccountComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [AccountComponent, TableComponent, BtcToUsdFormatPipe],
-      imports: [MatTableModule],
+      imports: [
+        MatTableModule,
+        MatSortModule,
+        BrowserAnimationsModule.withConfig({ disableAnimations: true }),
+      ],
       providers: [
         { provide: Router, useValue: routerMock },
         { provide: ActivatedRoute, useClass: MockActivatedRoute },

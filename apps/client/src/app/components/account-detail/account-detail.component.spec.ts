@@ -1,23 +1,25 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AccountDetailComponent } from './account-detail.component';
+import { MatSortModule } from '@angular/material/sort';
+import { MatTableModule } from '@angular/material/table';
+import {
+  ActivatedRoute,
+  NavigationEnd,
+  Router,
+  RouterEvent,
+  convertToParamMap,
+} from '@angular/router';
 import { Account, USDBTCPrice } from '@fortris-cc/types';
 import { Observable, ReplaySubject, of, startWith } from 'rxjs';
 import { getAccounts } from '../../__mock__/accounts.mock';
 import { getTransactions } from '../../__mock__/transactions.mock';
-import {
-  Router,
-  ActivatedRoute,
-  RouterEvent,
-  convertToParamMap,
-  NavigationEnd,
-} from '@angular/router';
+import { BtcToUsdFormatPipe } from '../../pipes/btc-to-usd-format.pipe';
 import { AccountService } from '../../services/account.service';
 import { BreadcrumbService } from '../../services/breadcrumb.service';
 import { TrackerService } from '../../services/tracker.service';
-import { BtcToUsdFormatPipe } from '../../pipes/btc-to-usd-format.pipe';
 import { TableComponent } from '../table/table.component';
-import { MatTableModule } from '@angular/material/table';
+import { AccountDetailComponent } from './account-detail.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const accounts = getAccounts();
 const transactions = getTransactions();
@@ -91,7 +93,11 @@ describe('AccountDetailComponent', () => {
         { provide: TrackerService, useClass: TrackerServiceMock },
         { provide: BreadcrumbService, useClass: BreadcrumbServiceMock },
       ],
-      imports: [MatTableModule],
+      imports: [
+        MatTableModule,
+        MatSortModule,
+        BrowserAnimationsModule.withConfig({ disableAnimations: true }),
+      ],
     });
     fixture = TestBed.createComponent(AccountDetailComponent);
     component = fixture.componentInstance;
@@ -104,20 +110,17 @@ describe('AccountDetailComponent', () => {
     it('THEN values must be set', () => {
       const urlAfterRedirects = '/accounts/account-detail/1';
       const { _id } = accounts[0];
-      const transactionsById = transactions.filter(
-        (t) => t.account_id === _id
-      );
+      const transactionsById = transactions.filter((t) => t.account_id === _id);
       const navigationEndEvent = new NavigationEnd(
         1,
         urlAfterRedirects,
         urlAfterRedirects
       );
       jest.spyOn(breadcrumbService, 'setBreadcrumbPath');
-      
+
       paramsSubject.next({ id: _id as string });
       eventSubject.next(navigationEndEvent);
 
-      
       expect(component).toBeTruthy();
       expect(component.account).toEqual(accounts[0]);
       expect(component.dataSource).toEqual(transactionsById);
