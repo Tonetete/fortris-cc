@@ -6,6 +6,7 @@ db = db.getSiblingDB('accounts_fortris');
 db.createCollection('accounts');
 db.accounts.insertMany([
   {
+    _id: '64b9a0395411c66c96c03ba0',
     account_name: 'Account User 1',
     tag: 'test',
     category: 'treasury',
@@ -15,6 +16,7 @@ db.accounts.insertMany([
     updated_at: new Date(),
   },
   {
+    _id: '5f9d9b3b9d3b1d0b1c9d4402',
     account_name: 'Account User 2',
     tag: 'test',
     category: 'treasury',
@@ -24,6 +26,7 @@ db.accounts.insertMany([
     updated_at: new Date(),
   },
   {
+    _id: '5f9d9b3b9d3b1d0b1c9d4403',
     account_name: 'Account User 3',
     tag: 'test',
     category: 'treasury',
