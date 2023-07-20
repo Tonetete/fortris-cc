@@ -23,7 +23,7 @@ export class TransactionsController {
   }
 
   @Get('/account_id/:account_id')
-  async findByAccountId(@Param('account_id') account_id: string) {
+  findByAccountId(@Param('account_id') account_id: string) {
     return this.transactionsService.findByAccountId(account_id);
   }
 

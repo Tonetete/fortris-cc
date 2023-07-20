@@ -9,7 +9,6 @@ import {
 import { combineLatest, filter } from 'rxjs';
 import { AccountService } from '../../services/account.service';
 import { TrackerService } from '../../services/tracker.service';
-import { DELAY_BACKGROUND_COLOR_CHANGE } from '@fortris-cc/constants';
 import { BreadcrumbService } from '../../services/breadcrumb.service';
 
 @Component({
@@ -78,14 +77,6 @@ export class AccountDetailComponent {
   ngOnInit() {
     this.trackerService.getUSDBTCPriceMessage();
     this.trackerService.USDBTCPrice$.subscribe((price: USDBTCPrice) => {
-      const { rate_float } = price;
-      const { rate_float: oldRate_float } = this.USDBTCPrice || {};
-
-      if (rate_float !== oldRate_float) {
-        this.rowBackgroundPriceStyleIncrease =
-          (rate_float || 0) > (oldRate_float || 0);
-      }
-
       this.USDBTCPrice = price;
     });
   }

@@ -22,7 +22,7 @@ export class BreadcrumbService {
     paths.forEach((p) => {
       const routeConfig = router.config.find((r) => p === r.data?.['breadcrumb']?.['path']);
       if (routeConfig) {
-        const alias = routeConfig.data?.['title'] as string;
+        const alias = routeConfig.data?.['breadcrumb']?.['title'] as string;
         const path = routeConfig.path as string;
 
         breadcrumbPath.push({ path, alias });

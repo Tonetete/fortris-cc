@@ -66,6 +66,51 @@ describe('TransactionsService', () => {
     });
   });
 
+  describe('create', () => {
+    it('SHOULD fail creating a transactions WHEN function is called because no account id exists with that id', async () => {
+      const payload = {
+        _id: '5f9d9b3b9d3b1d0b1c914411',
+        account_id: '5f9d9b3b9d3b1d0b1c914411',
+        order_id: 'test',
+        order_code: 'test',
+        transaction_type: 'Payment Not Received',
+        debit: '',
+        credit: 1.0,
+        balance: 2.0,
+        created_at: new Date(),
+      };
+
+      try {
+        await service.create(payload);
+      } catch (error) {
+        expect(error.message).toBe('Account ID Not Found');
+      }
+    });
+
+    it('SHOULD create a transactions WHEN function is called', async () => {
+      const payload = {
+        _id: '5f9d9b3b9d3b1d0b1c914431',
+        account_id: '5f9d9b3b9d3b1d0b1c9d4401',
+        order_id: 'test',
+        order_code: 'test',
+        transaction_type: 'Payment Not Received',
+        debit: '',
+        credit: 1.0,
+        balance: 2.0,
+        created_at: new Date(),
+      };
+      
+      await service.create(payload);
+
+      const result = await service.findOne(payload._id);
+
+      expect(result.transaction_type).toBe(payload.transaction_type);
+      expect(result.debit).toBe(payload.debit);
+      expect(result.credit).toBe(payload.credit);
+      expect(result.balance).toBe(payload.balance);
+    });
+  });
+
   describe('findOne', () => {
     it('SHOULD return a transaction passing an id WHEN function is called', async () => {
       const transactions = getTransactions();

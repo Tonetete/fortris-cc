@@ -12,7 +12,11 @@ describe('TrackerService', () => {
     service = module.get<TrackerService>(TrackerService);
   });
 
-  it('should be defined', () => {
-    expect(service).toBeDefined();
+
+  describe('WHEN getBTCToUSDPrice', () => {
+    it('THEN tracker SHOULD return BTC random price', () => {
+      const result = service.getBTCToUSDPrice();
+      expect(result).toBeDefined();
+    });
   });
 });
