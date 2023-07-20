@@ -1,4 +1,5 @@
 import {
+  ChangeDetectorRef,
   Component,
   EventEmitter,
   Input,
@@ -32,6 +33,8 @@ export class TableComponent<T> implements OnChanges {
     | TemplateRef<TemplateRefTable>
     | undefined;
 
+  templateMap: { [col: string]: TemplateRef<TemplateRefTable> } = {};
+
   @Input() columns: string[] = [];
   @Input() dataSource: T[] = [];
   @Input() displayedColumns: { [key: string]: string } = {};
@@ -43,7 +46,7 @@ export class TableComponent<T> implements OnChanges {
 
   rowBackgroundPriceStyleIncrease: boolean | null = null;
 
-  constructor() {}
+  constructor(private cdr: ChangeDetectorRef) {}
 
   ngOnChanges(changes: SimpleChanges) {
     const {
@@ -63,10 +66,18 @@ export class TableComponent<T> implements OnChanges {
         this.rowBackgroundPriceStyleIncrease = null;
       }, DELAY_BACKGROUND_COLOR_CHANGE);
     }
+    // Manually trigger change detection after resetting the property to avoid the ExpressionChangedAfterItHasBeenCheckedError
+    this.cdr.detectChanges();
   }
 
-  getTemplate(col: string, element: { [key: string]: unknown }): TemplateRef<TemplateRefTable> {
-    if ((typeof element[col] === 'string' && this.isDateFormat(element[col] as string))) {
+  getTemplate(
+    col: string,
+    element: { [key: string]: unknown }
+  ): TemplateRef<TemplateRefTable> {
+    if (
+      typeof element[col] === 'string' &&
+      this.isDateFormat(element[col] as string)
+    ) {
       return this.dateTemplate as TemplateRef<TemplateRefTable>;
     } else if (this.btcUsdFormatColums.includes(col)) {
       return this.btcUSDCurrencyFormatTemplate as TemplateRef<TemplateRefTable>;
@@ -77,13 +88,16 @@ export class TableComponent<T> implements OnChanges {
   isDateFormat(str: string) {
     // Regular expression to match the date format (YYYY-MM-DDTHH:mm:ss.sssZ)
     var regex = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/;
-  
+
     // Test if the string matches the regular expression
     return regex.test(str);
   }
-  
 
   rowClicked(event: MouseEvent) {
     this.rowClickedCb.emit(event);
+  }
+
+  ngOnDestroy() {
+    
   }
 }
