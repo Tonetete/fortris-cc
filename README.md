@@ -33,3 +33,8 @@ Open a terminal and from the root folder and execute the following command:
 
 - `./node_modules/.bin/jest --coverage` from root folder
 
+## Api Collection
+
+- Install the extension ThunderClient in VSCode: [link](https://marketplace.visualstudio.com/items?itemName=rangav.vscode-thunder-client)
+- Open extensions and import `thunder-collection_Fortris CC.json` file
+- Enjoy!
