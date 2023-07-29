@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { Account, AccountDisplayColumns, USDBTCPrice } from '@fortris-cc/types';
-import { AccountService } from '../../services/account.service';
-import { TrackerService } from '../../services/tracker.service';
+import { Account, ColumnTemplate, USDBTCPrice } from '@fortris-cc/types';
 import { filter } from 'rxjs';
 import { BreadcrumbService } from '../../services/breadcrumb.service';
+import { TrackerService } from '../../services/tracker.service';
 
 @Component({
   selector: 'fortris-account',
@@ -14,14 +13,14 @@ import { BreadcrumbService } from '../../services/breadcrumb.service';
 export class AccountComponent {
   btcUsdFormatColums: string[] = ['balance', 'available_balance'];
   dataSource: Account[] = [];
-  columns: Array<keyof Account> = [
-    'account_name',
-    'category',
-    'tag',
-    'balance',
-    'available_balance',
+  columns: ColumnTemplate<Account>[] = [
+    { name: 'account_name' },
+    { name: 'category' },
+    { name: 'tag' },
+    { name: 'balance', template: 'btcUsdTemplate' },
+    { name: 'available_balance', template: 'btcUsdTemplate' },
   ];
-  displayedColumns: { [key in keyof AccountDisplayColumns]: string } = {
+  displayedColumns: { [key: string]: string } = {
     account_name: 'Account Name',
     category: 'Category',
     tag: 'Tags',
@@ -31,31 +30,32 @@ export class AccountComponent {
   USDBTCPrice: USDBTCPrice | null = null;
 
   constructor(
-    private accountService: AccountService,
     private trackerService: TrackerService,
     private breadcrumbService: BreadcrumbService,
     private router: Router,
     private route: ActivatedRoute
   ) {
+    this.route.data.subscribe((data) => {
+      this.dataSource = data['accounts'] as Account[];
+    });
+
     this.trackerService.USDBTCPrice$.subscribe((price) => {
       this.USDBTCPrice = price;
-    });
-    this.accountService.accountBehaviourSubject$.subscribe((accounts) => {
-      this.dataSource = accounts;
     });
 
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe((event) => {
         const { urlAfterRedirects } = event as NavigationEnd;
-        this.breadcrumbService.setBreadcrumbPath(urlAfterRedirects, this.router);
+        this.breadcrumbService.setBreadcrumbPath(
+          urlAfterRedirects,
+          this.router
+        );
       });
   }
 
-  rowClicked(event: MouseEvent) {
-    const tr = (event?.target as Element)?.closest('tr');
-    const account_id = tr?.getAttribute('data-id');
-    this.router.navigate(['account-detail', account_id], {
+  rowClicked({ event, element }: { event: MouseEvent; element: Account }) {
+    this.router.navigate(['account-detail', element._id], {
       relativeTo: this.route,
     });
   }

@@ -22,6 +22,11 @@ import { TopbarComponent } from './components/topbar/topbar.component';
 import { BtcToUsdFormatPipe } from './pipes/btc-to-usd-format.pipe';
 import { AccountService } from './services/account.service';
 import { TrackerService } from './services/tracker.service';
+import { BtcUsdCellTemplateComponent } from './components/table/cell-templates/btc-usd-cell-template/btc-usd-cell-template.component';
+import { DefaultCellTemplateComponent } from './components/table/cell-templates/default-cell-template/default-cell-template.component';
+import { DynamicCellComponentDirective } from './components/table/cell-templates/dynamic-cell-component.directive';
+import { DateTemplateComponent } from './components/table/cell-templates/date-template/date-template.component';
+import { FlashRowStyleDirective } from './components/table/flash-row-style.directive';
 
 const config: SocketIoConfig = { url: getBTCTrackerBaseUrl(), options: {} };
 
@@ -36,6 +41,11 @@ const config: SocketIoConfig = { url: getBTCTrackerBaseUrl(), options: {} };
     BtcToUsdFormatPipe,
     NotFoundComponent,
     TopbarComponent,
+    BtcUsdCellTemplateComponent,
+    DefaultCellTemplateComponent,
+    DynamicCellComponentDirective,
+    DateTemplateComponent,
+    FlashRowStyleDirective,
   ],
   imports: [
     HttpClientModule,

@@ -1,6 +1,10 @@
 <section>
-  <fortris-table [btcUsdFormatColums]="btcUsdFormatColums" [columns]="columns" [displayedColumns]="displayedColumns"
-    [dataSource]="dataSource" [USDBTCPrice]="USDBTCPrice" [enablePointerCssClass]="true"
+  <fortris-table 
+    fortrisFlashRowStyle 
+    [columns]="columns" 
+    [displayedColumns]="displayedColumns" 
+    [dataSource]="dataSource"
+    [enablePointerCssClass]="true" 
     (rowClickedCb)="rowClicked($event)">
   </fortris-table>
 </section>

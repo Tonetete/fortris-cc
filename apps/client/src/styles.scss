@@ -72,3 +72,31 @@ section {
 .small {
   font-size: 0.5rem;
 }
+
+// Flash row styles
+
+@keyframes fade-out-bg-decrease {
+  0% {
+    background-color: $red;
+  }
+  100% {
+    background-color: $white;
+  }
+}
+
+tr.decrease {
+  animation: fade-out-bg-decrease 1.5s linear;
+}
+
+@keyframes fade-out-bg-increase {
+  0% {
+    background-color: $green;
+  }
+  100% {
+    background-color: $white;
+  }
+}
+
+tr.increase {
+  animation: fade-out-bg-increase 1.5s linear;
+}

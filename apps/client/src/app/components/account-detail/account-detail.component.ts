@@ -2,14 +2,14 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import {
   Account,
+  ColumnTemplate,
   Transaction,
-  TransactionDisplayColumns,
   USDBTCPrice,
 } from '@fortris-cc/types';
 import { combineLatest, filter } from 'rxjs';
 import { AccountService } from '../../services/account.service';
-import { TrackerService } from '../../services/tracker.service';
 import { BreadcrumbService } from '../../services/breadcrumb.service';
+import { TrackerService } from '../../services/tracker.service';
 
 @Component({
   selector: 'fortris-account-detail',
@@ -19,17 +19,16 @@ import { BreadcrumbService } from '../../services/breadcrumb.service';
 export class AccountDetailComponent {
   account: Account | undefined;
   dataSource: Transaction[] = [];
-  btcUsdFormatColums: string[] = ['credit', 'balance', 'debit'];
-  columns: Array<keyof Transaction> = [
-    'created_at',
-    'order_id',
-    'order_code',
-    'transaction_type',
-    'debit',
-    'credit',
-    'balance',
+  columns: ColumnTemplate<Transaction>[] = [
+    { name: 'created_at', template: 'dateTemplate' },
+    { name: 'order_id' },
+    { name: 'order_code' },
+    { name: 'transaction_type' },
+    { name: 'debit', template: 'btcUsdTemplate' },
+    { name: 'credit', template: 'btcUsdTemplate' },
+    { name: 'balance', template: 'btcUsdTemplate' },
   ];
-  displayedColumns: { [key in keyof TransactionDisplayColumns]: string } = {
+  displayedColumns: { [key: string]: string } = {
     created_at: 'Confirmed Date',
     order_id: 'Order ID',
     order_code: 'Order Code',
@@ -49,20 +48,10 @@ export class AccountDetailComponent {
     private router: Router
   ) {
     this.route.params.subscribe((params) => {
-      combineLatest({
-        getAccountById: this.accountService.getAccountById$(params['id']),
-        getTransactionsByAccountId:
-          this.accountService.getTransactionsByAccountId$(params['id']),
-      })
-        .pipe(
-          filter(
-            ({ getAccountById, getTransactionsByAccountId }) =>
-              !!getAccountById && getTransactionsByAccountId.length > 0
-          )
-        )
-        .subscribe(({ getAccountById, getTransactionsByAccountId }) => {
-          this.account = getAccountById;
-          this.dataSource = getTransactionsByAccountId;
+      this.accountService
+        .fetchTransactionsByAccountId$(params['id'])
+        .subscribe((transactions) => {
+          this.dataSource = transactions;
         });
     });
 
