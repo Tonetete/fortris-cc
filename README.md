@@ -16,12 +16,15 @@ Open a terminal and from the root folder and execute the following command:
 
 ## Start angular app and nestjs server
 
+On root folder:
+
 - `npm install`
 
 - `npx nx run server:serve` or `nx run server:serve` for nestjs server
 
 - `npx nx run client:serve` or `nx run client:serve` for angular client
 
+- http://localhost:4200
 
 ## Unit testing
 
