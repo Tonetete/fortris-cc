@@ -4,9 +4,9 @@ import { USDBTCPrice } from '@fortris-cc/types';
 import { TrackerService } from '../../services/tracker.service';
 
 @Directive({
-  selector: '[fortrisFlashRowStyle]',
+  selector: '[fortrisFlashRowStyleBTCTracking]',
 })
-export class FlashRowStyleDirective {
+export class FlashRowStyleBTCTrackingDirective {
   trs: HTMLElement[] = [];
   previousUSDBTCPrice: USDBTCPrice | null = null;
   USDBTCPrice: USDBTCPrice | null = null;

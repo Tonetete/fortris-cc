@@ -1,4 +1,4 @@
-import { FlashRowStyleDirective } from './flash-row-style.directive';
+import { FlashRowStyleDirective } from './flash-row-style-btc-tracking.directive';
 
 describe('FlashRowStyleDirective', () => {
   it('should create an instance', () => {

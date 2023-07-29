@@ -26,7 +26,7 @@ import { BtcUsdCellTemplateComponent } from './components/table/cell-templates/b
 import { DefaultCellTemplateComponent } from './components/table/cell-templates/default-cell-template/default-cell-template.component';
 import { DynamicCellComponentDirective } from './components/table/cell-templates/dynamic-cell-component.directive';
 import { DateTemplateComponent } from './components/table/cell-templates/date-template/date-template.component';
-import { FlashRowStyleDirective } from './components/table/flash-row-style.directive';
+import { FlashRowStyleBTCTrackingDirective } from './components/table/flash-row-style-btc-tracking.directive';
 
 const config: SocketIoConfig = { url: getBTCTrackerBaseUrl(), options: {} };
 
@@ -45,7 +45,7 @@ const config: SocketIoConfig = { url: getBTCTrackerBaseUrl(), options: {} };
     DefaultCellTemplateComponent,
     DynamicCellComponentDirective,
     DateTemplateComponent,
-    FlashRowStyleDirective,
+    FlashRowStyleBTCTrackingDirective,
   ],
   imports: [
     HttpClientModule,
