@@ -69,8 +69,4 @@ export class AccountDetailComponent {
       this.USDBTCPrice = price;
     });
   }
-
-  ngOnDestroy() {
-    this.accountService.clear();
-  }
 }

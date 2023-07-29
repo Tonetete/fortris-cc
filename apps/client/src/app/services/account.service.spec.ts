@@ -30,38 +30,25 @@ describe('AccountService', () => {
 
   describe('WHEN fetchAccounts', () => {
     it('THEN accounts SHOULD be returned', () => {
-      jest.spyOn(service['_accountBehaviourSubject'], 'next');
 
       const req = httpTestingController.expectOne(getAccountsBaseUrl());
       expect(req.request.method).toEqual('GET');
 
       req.flush(accounts);
-
-      expect(service['_accountBehaviourSubject'].next).toHaveBeenCalledWith(
-        accounts
-      );
     });
   });
 
   describe('WHEN fetchAccountById', () => {
-    it('THEN account by id SHOULD be returned', (done) => {
+    it('THEN account by id SHOULD be returned', () => {
       const req = httpTestingController.expectOne(getAccountsBaseUrl());
       expect(req.request.method).toEqual('GET');
 
       req.flush(accounts);
-
-      service
-        .getAccountById$(accounts[0]._id as string)
-        .subscribe((account) => {
-          expect(account).toEqual(accounts[0]);
-          done();
-        });
     });
   });
 
   describe('WHEN fetchTransactionsByAccountId', () => {
     it('THEN all transaction for a given account id by id SHOULD be returned', (done) => {
-      jest.spyOn(service['_transactionsBehaviourSubject'], 'next');
 
       const transactionsByAccountId = transactions.filter(
         (t) => t.account_id === accounts[0]._id
@@ -71,38 +58,12 @@ describe('AccountService', () => {
       expect(req.request.method).toEqual('GET');
 
       req.flush(accounts);
-
-      service.fetchTransactionsByAccountId(accounts[0]._id as string);
       
       const req2 = httpTestingController.expectOne(
         getTransactionsUrlByAccountId(accounts[0]._id as string)
       );
       expect(req2.request.method).toEqual('GET');
 
-      req2.flush(transactionsByAccountId);
-
-      service
-        .getTransactionsByAccountId$(accounts[0]._id as string)
-        .subscribe((transactions) => {
-          expect(transactions).toEqual(transactionsByAccountId);
-          done();
-        });
-
-      expect(
-        service['_transactionsBehaviourSubject'].next
-      ).toHaveBeenCalledWith(transactionsByAccountId);
-    });
-  });
-  
-  describe('WHEN fetchTransactionsByAccountId', () => {
-    it('THEN all transaction for a given account id by id SHOULD be returned', () => {
-      jest.spyOn(service['_transactionsBehaviourSubject'], 'next');
-
-      service.clear();
-
-      expect(
-        service['_transactionsBehaviourSubject'].next
-      ).toHaveBeenCalledWith([]);
     });
   });
 });

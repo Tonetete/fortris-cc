@@ -53,10 +53,6 @@ class AccountServiceMock {
     startWith(accounts)
   );
 
-  getAccountById$() {
-    return of(accounts[0]);
-  }
-
   getTransactionsByAccountId$(account_id: string) {
     return of(transactions.filter((t) => t.account_id === account_id));
   }
