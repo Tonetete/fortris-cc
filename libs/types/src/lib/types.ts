@@ -29,20 +29,11 @@ export interface USDBTCPrice
   rate_float: number
 }
 
-export type TransactionDisplayColumns = Pick<
-  Transaction,
-  | 'created_at'
-  | 'order_id'
-  | 'order_code'
-  | 'transaction_type'
-  | 'debit'
-  | 'credit'
-  | 'balance'
->;
-
-export type AccountDisplayColumns = Pick<
-  Account,
-  'account_name' | 'category' | 'tag' | 'balance' | 'available_balance'
->;
-
 export type BreadcrumbPath = { path: string, alias: string }[];
+
+export type ColumnTemplate<T> = {
+  name: string;
+  template?: ColumnCellTemplate;
+}
+
+export type ColumnCellTemplate = 'dateTemplate' | 'btcUsdTemplate' | 'defaultTemplate';
