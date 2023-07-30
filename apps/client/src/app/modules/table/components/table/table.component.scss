@@ -1,0 +1,10 @@
+@import '../../../../../../../../libs/constants/src/lib/variables.scss';
+
+th {
+    text-align: right;
+    color: $green;
+}
+
+tr.cdk-row.pointer {
+    cursor: pointer;
+}

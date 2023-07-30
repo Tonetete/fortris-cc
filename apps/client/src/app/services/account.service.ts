@@ -11,10 +11,10 @@ import { getAccountsBaseUrl, getTransactionsUrlByAccountId } from '../api/urls';
 export class AccountService {
 
   constructor(private http: HttpClient) { 
-    this.fetchAccounts();
+    this.fetchAccounts$();
   }
 
-  fetchAccounts(): Observable<Account[]> {
+  fetchAccounts$(): Observable<Account[]> {
     return this.http
       .get<Account[]>(getAccountsBaseUrl())
       .pipe(map((accounts) => accounts));
@@ -22,7 +22,9 @@ export class AccountService {
 
   fetchTransactionsByAccountId$(account_id: string): Observable<Transaction[]> {
     return this.http.get<Transaction[]>(getTransactionsUrlByAccountId(account_id)).pipe(
-      map((transactions) => transactions)
+      map((transactions) => {
+        return transactions;
+      })
     );
   }
 
