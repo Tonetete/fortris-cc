@@ -9,17 +9,19 @@ import {
   RouterEvent,
   convertToParamMap,
 } from '@angular/router';
-import { Account, USDBTCPrice } from '@fortris-cc/types';
-import { Observable, ReplaySubject, of, startWith } from 'rxjs';
-import { getAccounts } from '../../__mock__/accounts.mock';
-import { getTransactions } from '../../__mock__/transactions.mock';
-import { BtcToUsdFormatPipe } from '../../pipes/btc-to-usd-format.pipe';
-import { AccountService } from '../../services/account.service';
-import { BreadcrumbService } from '../../services/breadcrumb.service';
-import { TrackerService } from '../../services/tracker.service';
-import { TableComponent } from '../table/table.component';
+import { Account, Transaction, USDBTCPrice } from '@fortris-cc/types';
+import { Observable, ReplaySubject, Subscription, of, startWith } from 'rxjs';
+import { getAccounts } from '../../../__mock__/accounts.mock';
+import { getTransactions } from '../../../__mock__/transactions.mock';
+import { BtcToUsdFormatPipe } from '../../../pipes/btc-to-usd-format.pipe';
+import { AccountService } from '../../../services/account.service';
+import { BreadcrumbService } from '../../breadcrumb/services/breadcrumb.service';
+import { TrackerService } from '../../../services/tracker.service';
+import { TableComponent } from '../../table/components/table/table.component';
 import { AccountDetailComponent } from './account-detail.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TableModule } from '../../table/table.module';
+import { SharedModule } from '../../shared/shared.module';
 
 const accounts = getAccounts();
 const transactions = getTransactions();
@@ -36,6 +38,15 @@ class MockActivatedRoute {
     paramMap: convertToParamMap({ id: '1' }),
   };
   params = paramsSubject.asObservable();
+  data = new Observable<{ account: Account; transactions: Transaction[] }>(
+    (observer) =>
+      observer.next({
+        account: { ...accounts[0] },
+        transactions: transactions.filter(
+          (t) => t.account_id === accounts[0]._id
+        ),
+      }) // this is the mock
+  );
 }
 
 const USDBTCPriceMock = {
@@ -66,7 +77,7 @@ class TrackerServiceMock {
 }
 
 class BreadcrumbServiceMock {
-  setBreadcrumbPath() {}
+  buildBreacrumPathBasedInRouter(router: Router) {}
 }
 
 describe('AccountDetailComponent', () => {
@@ -77,28 +88,26 @@ describe('AccountDetailComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        AccountDetailComponent,
-        BtcToUsdFormatPipe,
-        TableComponent,
-      ],
+      declarations: [AccountDetailComponent],
       providers: [
-        { provide: Router, useValue: routerMock },
+        { provide: Router },
         { provide: ActivatedRoute, useClass: MockActivatedRoute },
         { provide: AccountService, useClass: AccountServiceMock },
         { provide: TrackerService, useClass: TrackerServiceMock },
         { provide: BreadcrumbService, useClass: BreadcrumbServiceMock },
       ],
       imports: [
-        MatTableModule,
-        MatSortModule,
+        TableModule,
+        SharedModule,
         BrowserAnimationsModule.withConfig({ disableAnimations: true }),
       ],
     });
-    fixture = TestBed.createComponent(AccountDetailComponent);
-    component = fixture.componentInstance;
     router = TestBed.inject(Router);
     breadcrumbService = TestBed.inject(BreadcrumbService);
+    jest.spyOn(breadcrumbService, 'buildBreacrumPathBasedInRouter');
+
+    fixture = TestBed.createComponent(AccountDetailComponent);
+    component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
@@ -112,7 +121,6 @@ describe('AccountDetailComponent', () => {
         urlAfterRedirects,
         urlAfterRedirects
       );
-      jest.spyOn(breadcrumbService, 'setBreadcrumbPath');
 
       paramsSubject.next({ id: _id as string });
       eventSubject.next(navigationEndEvent);
@@ -120,10 +128,20 @@ describe('AccountDetailComponent', () => {
       expect(component).toBeTruthy();
       expect(component.account).toEqual(accounts[0]);
       expect(component.dataSource).toEqual(transactionsById);
-      expect(breadcrumbService.setBreadcrumbPath).toHaveBeenCalledWith(
-        urlAfterRedirects,
-        router
+      expect(
+        breadcrumbService.buildBreacrumPathBasedInRouter
+      ).toHaveBeenCalledWith(router);
+    });
+  });
+
+  describe('WHEN on destroy', () => {
+    it('THEN subscriptions SHOULD be unsubscribed', () => {
+      jest.spyOn(
+        component['USDBTCPriceSubscription'] as Subscription,
+        'unsubscribe'
       );
+      component.ngOnDestroy();
+      expect(component.USDBTCPriceSubscription?.unsubscribe).toHaveBeenCalled();
     });
   });
 });

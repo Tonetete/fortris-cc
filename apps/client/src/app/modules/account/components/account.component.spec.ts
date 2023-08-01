@@ -51,7 +51,7 @@ describe('AccountComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [AccountComponent, TableComponent, BtcToUsdFormatPipe],
+      declarations: [AccountComponent],
       imports: [
         TableModule,
         SharedModule,

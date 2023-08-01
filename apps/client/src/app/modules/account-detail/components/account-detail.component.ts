@@ -44,9 +44,8 @@ export class AccountDetailComponent {
     private trackerService: TrackerService,
     private breadcrumbService: BreadcrumbService,
     private router: Router,
-    private route: ActivatedRoute,
+    private route: ActivatedRoute
   ) {
-    
     this.route.data.subscribe((data) => {
       this.account = data['account'] as Account;
       this.dataSource = data['transactions'] as Transaction[];
@@ -57,9 +56,11 @@ export class AccountDetailComponent {
 
   ngOnInit() {
     this.trackerService.getUSDBTCPriceMessage();
-    this.trackerService.USDBTCPrice$.subscribe((price: USDBTCPrice) => {
-      this.USDBTCPrice = price;
-    });
+    this.USDBTCPriceSubscription = this.trackerService.USDBTCPrice$.subscribe(
+      (price: USDBTCPrice) => {
+        this.USDBTCPrice = price;
+      }
+    );
   }
 
   ngOnDestroy() {
