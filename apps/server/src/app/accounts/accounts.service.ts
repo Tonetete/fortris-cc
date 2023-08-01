@@ -3,6 +3,7 @@ import { CreateAccountsDto } from './dto/create-accounts.dto';
 import { UpdateAccountsDto } from './dto/update-accounts.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { ObjectId } from 'mongodb';
 import { Accounts, AccountsDocument } from './entities/accounts.entity';
 
 @Injectable()
@@ -18,7 +19,8 @@ export class AccountsService {
   }
 
   findOne(id: string) {
-    return this.accountsModel.findOne({_id: id}).exec();
+    const objectId = new ObjectId(id);
+    return this.accountsModel.findOne(objectId).exec();
   }
 
   update(id: string, updateAccountDto: UpdateAccountsDto) {

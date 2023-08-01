@@ -48,6 +48,7 @@ export class AccountDetailComponent {
   ) {
     
     this.route.data.subscribe((data) => {
+      this.account = data['account'] as Account;
       this.dataSource = data['transactions'] as Transaction[];
     });
 

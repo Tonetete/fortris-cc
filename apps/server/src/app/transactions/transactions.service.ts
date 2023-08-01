@@ -5,6 +5,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Transactions, TransactionsDocument } from './entities/transaction.entity';
 import { Accounts, AccountsDocument } from '../accounts/entities/accounts.entity';
 import { Model } from 'mongoose';
+import { ObjectId } from 'mongodb';
 
 @Injectable()
 export class TransactionsService {
@@ -34,7 +35,8 @@ export class TransactionsService {
   }
 
   findOne(id: string) {
-    return this.transactionsModel.findOne({ _id: id }).exec();
+    const objectId = new ObjectId(id);
+    return this.transactionsModel.findOne(objectId).exec();
   }
 
   findByAccountId(account_id: string) {
