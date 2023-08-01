@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { TableModule } from '../table/table.module';
+import { SharedModule } from '../shared/shared.module';
 
 import { accountRoutes } from './routes/account.routes';
 
@@ -19,6 +20,7 @@ import { AccountComponent } from './components/account.component';
     CommonModule,
     HttpClientModule,
     RouterModule.forChild(accountRoutes),
+    SharedModule,
     TableModule,
   ],
   providers: [AccountService, BreadcrumbService, TrackerService],

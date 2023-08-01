@@ -11,7 +11,6 @@ import { FlashRowStyleBTCTrackingDirective } from './directives/flash-row-style-
 @NgModule({
   declarations: [
     DynamicCellComponentDirective,
-    FlashRowStyleBTCTrackingDirective,
     TableComponent,
   ],
   imports: [

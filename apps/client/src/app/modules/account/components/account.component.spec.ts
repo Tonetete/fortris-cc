@@ -1,23 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MatSortModule } from '@angular/material/sort';
-import { MatTableModule } from '@angular/material/table';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {
-  ActivatedRoute,
-  NavigationEnd,
-  Router,
-  RouterEvent,
-  convertToParamMap,
-} from '@angular/router';
+import { ActivatedRoute, Router, convertToParamMap } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 import { Account, USDBTCPrice } from '@fortris-cc/types';
-import { Observable, ReplaySubject, startWith } from 'rxjs';
+import { Observable, Subscription, startWith } from 'rxjs';
 import { getAccounts } from '../../../__mock__/accounts.mock';
 import { BtcToUsdFormatPipe } from '../../../pipes/btc-to-usd-format.pipe';
-import { AccountService } from '../../../services/account.service';
-import { BreadcrumbService } from '../../../services/breadcrumb.service';
 import { TrackerService } from '../../../services/tracker.service';
-import { TableComponent } from '../table/table.component';
+import { BreadcrumbService } from '../../breadcrumb/services/breadcrumb.service';
+import { SharedModule } from '../../shared/shared.module';
+import { TableComponent } from '../../table/components/table/table.component';
+import { TableModule } from '../../table/table.module';
 import { AccountComponent } from './account.component';
 
 const accounts = getAccounts();
@@ -31,23 +25,13 @@ const USDBTCPriceMock = {
   }),
 };
 
-const eventSubject = new ReplaySubject<RouterEvent>();
-
-const routerMock = {
-  navigate: jest.fn(),
-  events: eventSubject.asObservable(),
-  url: '/accounts',
-};
-
 class MockActivatedRoute {
   snapshot = {
     paramMap: convertToParamMap({ id: '1' }),
   };
-}
 
-class AccountServiceMock {
-  accountBehaviourSubject$ = new Observable<Account>().pipe(
-    startWith(accounts)
+  data = new Observable<{ accounts: Account[] }>(
+    (observer) => observer.next({ accounts }) // this is the mock
   );
 }
 
@@ -56,7 +40,7 @@ class TrackerServiceMock {
 }
 
 class BreadcrumbServiceMock {
-  setBreadcrumbPath() {}
+  buildBreacrumPathBasedInRouter(router: Router) {}
 }
 
 describe('AccountComponent', () => {
@@ -69,24 +53,27 @@ describe('AccountComponent', () => {
     TestBed.configureTestingModule({
       declarations: [AccountComponent, TableComponent, BtcToUsdFormatPipe],
       imports: [
-        MatTableModule,
-        MatSortModule,
+        TableModule,
+        SharedModule,
         BrowserAnimationsModule.withConfig({ disableAnimations: true }),
       ],
       providers: [
-        { provide: Router, useValue: routerMock },
+        { provide: Router },
         { provide: ActivatedRoute, useClass: MockActivatedRoute },
-        { provide: AccountService, useClass: AccountServiceMock },
         { provide: TrackerService, useClass: TrackerServiceMock },
         { provide: BreadcrumbService, useClass: BreadcrumbServiceMock },
       ],
     });
-    fixture = TestBed.createComponent(AccountComponent);
     router = TestBed.inject(Router);
     breadcrumbService = TestBed.inject(BreadcrumbService);
+    jest.spyOn(breadcrumbService, 'buildBreacrumPathBasedInRouter');
+
+    fixture = TestBed.createComponent(AccountComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
+
+  beforeEach(() => {});
 
   describe('WHEN on init', () => {
     it('THEN values must be set', () => {
@@ -103,29 +90,27 @@ describe('AccountComponent', () => {
     });
 
     it('THEN router events SHOULD pass url and router to breadcrumb service', () => {
-      const urlAfterRedirects = '/accounts';
-      const navigationEndEvent = new NavigationEnd(
-        1,
-        urlAfterRedirects,
-        urlAfterRedirects
-      );
-
-      jest.spyOn(breadcrumbService, 'setBreadcrumbPath');
-      eventSubject.next(navigationEndEvent);
-
-      expect(breadcrumbService.setBreadcrumbPath).toHaveBeenCalledWith(
-        urlAfterRedirects,
-        router
-      );
+      expect(
+        breadcrumbService.buildBreacrumPathBasedInRouter
+      ).toHaveBeenCalledWith(router);
     });
   });
 
   describe('WHEN on click row', () => {
     it('THEN row account id SHOULD navigate to account-detail section', () => {
+      jest.spyOn(router, 'navigate');
       const firstRow = fixture.nativeElement.querySelectorAll('tr')[1];
       firstRow.click();
 
       expect(router.navigate).toHaveBeenCalled();
+    });
+  });
+
+  describe('WHEN on destroy', () => {
+    it('THEN subscriptions SHOULD be unsubscribed', () => {
+      jest.spyOn(component['USDBTCPriceSubscription'] as Subscription, 'unsubscribe');
+      component.ngOnDestroy();  
+      expect(component.USDBTCPriceSubscription?.unsubscribe).toHaveBeenCalled();
     });
   });
 });
