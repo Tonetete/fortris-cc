@@ -1,38 +1,48 @@
-import { Directive, ElementRef, Renderer2 } from '@angular/core';
+import {
+  Directive,
+  ElementRef,
+  Input,
+  OnChanges,
+  Renderer2,
+  SimpleChanges,
+} from '@angular/core';
 import { DELAY_BACKGROUND_COLOR_CHANGE } from '@fortris-cc/constants';
 import { USDBTCPrice } from '@fortris-cc/types';
-import { TrackerService } from '../../../../services/tracker.service';
 
 @Directive({
   selector: '[fortrisFlashRowStyleBTCTracking]',
 })
-export class FlashRowStyleBTCTrackingDirective {
+export class FlashRowStyleBTCTrackingDirective implements OnChanges {
+  @Input() USDBTCPrice: USDBTCPrice | null = null;
+
   trs: HTMLElement[] = [];
   previousUSDBTCPrice: USDBTCPrice | null = null;
-  USDBTCPrice: USDBTCPrice | null = null;
 
-  constructor(
-    private trackerService: TrackerService,
-    private renderer: Renderer2,
-    private el: ElementRef
-  ) {}
+  constructor(private renderer: Renderer2, private el: ElementRef) {}
+
+  ngOnChanges(changes: SimpleChanges) {
+    const {
+      USDBTCPrice: {
+        previousValue: previousUSDBTCPrice,
+        currentValue: currentUSDBTCPrice,
+      },
+    } = changes;
+    if (currentUSDBTCPrice && previousUSDBTCPrice) {
+      this.previousUSDBTCPrice = previousUSDBTCPrice;
+      this.setFlashClassToTrRows();
+    }
+  }
 
   ngAfterViewInit() {
-    this.trackerService.USDBTCPrice$.subscribe((USDBTCPrice) => {
-      this.trs = this.el.nativeElement.querySelectorAll('tbody tr');
-      if (this.previousUSDBTCPrice === null) {
-        this.previousUSDBTCPrice = USDBTCPrice;
-      }
-      this.USDBTCPrice = USDBTCPrice;
-      this.setFlashClassToTrRows();
-      this.previousUSDBTCPrice = USDBTCPrice;
-    });
+    this.trs = this.el.nativeElement.querySelectorAll('tbody tr');
   }
 
   private setFlashClassToTrRows() {
     this.trs.forEach((tr) => {
-      if ((this.USDBTCPrice?.rate_float || 0) >
-        ((this.previousUSDBTCPrice || { rate_float: 0 }).rate_float || 0)) {
+      if (
+        (this.USDBTCPrice?.rate_float || 0) >
+        ((this.previousUSDBTCPrice || { rate_float: 0 }).rate_float || 0)
+      ) {
         this.renderer.addClass(tr, 'increase');
       } else {
         this.renderer.addClass(tr, 'decrease');
