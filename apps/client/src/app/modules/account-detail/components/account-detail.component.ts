@@ -4,6 +4,7 @@ import {
   Account,
   ColumnTemplate,
   Transaction,
+  TransactionFieldsNames,
   USDBTCPrice,
 } from '@fortris-cc/types';
 import { Subscription } from 'rxjs';
@@ -28,7 +29,7 @@ export class AccountDetailComponent {
     { name: 'credit', template: 'btcUsdTemplate' },
     { name: 'balance', template: 'btcUsdTemplate' },
   ];
-  displayedColumns: { [key: string]: string } = {
+  displayedColumns: typeof TransactionFieldsNames = {
     created_at: 'Confirmed Date',
     order_id: 'Order ID',
     order_code: 'Order Code',

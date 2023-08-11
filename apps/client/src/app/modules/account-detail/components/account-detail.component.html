@@ -9,8 +9,12 @@
         <p>Available balance: {{ account?.balance }} BTC ({{ account?.balance | btcToUsdFormat : USDBTCPrice }})</p>
     </section>
     <section id="transactions">
-        <fortris-table fortrisFlashRowStyleBTCTracking [columns]="columns" [displayedColumns]="displayedColumns"
-             [dataSource]="dataSource">
+        <fortris-table 
+            fortrisFlashRowStyleBTCTracking 
+            [USDBTCPrice]="USDBTCPrice"
+            [columns]="columns"
+            [displayedColumns]="displayedColumns" 
+            [dataSource]="dataSource">
         </fortris-table>
     </section>
 </div>

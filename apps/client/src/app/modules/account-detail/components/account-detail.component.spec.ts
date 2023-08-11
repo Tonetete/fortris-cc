@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MatSortModule } from '@angular/material/sort';
-import { MatTableModule } from '@angular/material/table';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   ActivatedRoute,
   NavigationEnd,
@@ -13,15 +12,13 @@ import { Account, Transaction, USDBTCPrice } from '@fortris-cc/types';
 import { Observable, ReplaySubject, Subscription, of, startWith } from 'rxjs';
 import { getAccounts } from '../../../__mock__/accounts.mock';
 import { getTransactions } from '../../../__mock__/transactions.mock';
-import { BtcToUsdFormatPipe } from '../../../pipes/btc-to-usd-format.pipe';
 import { AccountService } from '../../../services/account.service';
-import { BreadcrumbService } from '../../breadcrumb/services/breadcrumb.service';
 import { TrackerService } from '../../../services/tracker.service';
-import { TableComponent } from '../../table/components/table/table.component';
-import { AccountDetailComponent } from './account-detail.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { TableModule } from '../../table/table.module';
+import { BreadcrumbService } from '../../breadcrumb/services/breadcrumb.service';
 import { SharedModule } from '../../shared/shared.module';
+import { TableModule } from '../../table/table.module';
+import { AccountDetailComponent } from './account-detail.component';
+import { USDBTCPriceMock } from '../../../__mock__/values.mock';
 
 const accounts = getAccounts();
 const transactions = getTransactions();
@@ -48,16 +45,6 @@ class MockActivatedRoute {
       }) // this is the mock
   );
 }
-
-const USDBTCPriceMock = {
-  rate_float: 1.234,
-  code: 'USD',
-  description: 'USD price of bitcoin',
-  rate: (1.234).toLocaleString('en-US', {
-    style: 'currency',
-    currency: 'USD',
-  }),
-};
 
 class AccountServiceMock {
   accountBehaviourSubject$ = new Observable<Account>().pipe(

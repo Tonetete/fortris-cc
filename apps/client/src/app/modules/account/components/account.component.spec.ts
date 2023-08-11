@@ -2,28 +2,17 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute, Router, convertToParamMap } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
 import { Account, USDBTCPrice } from '@fortris-cc/types';
 import { Observable, Subscription, startWith } from 'rxjs';
+import { USDBTCPriceMock } from '../../../__mock__/values.mock';
 import { getAccounts } from '../../../__mock__/accounts.mock';
-import { BtcToUsdFormatPipe } from '../../../pipes/btc-to-usd-format.pipe';
 import { TrackerService } from '../../../services/tracker.service';
 import { BreadcrumbService } from '../../breadcrumb/services/breadcrumb.service';
 import { SharedModule } from '../../shared/shared.module';
-import { TableComponent } from '../../table/components/table/table.component';
 import { TableModule } from '../../table/table.module';
 import { AccountComponent } from './account.component';
 
 const accounts = getAccounts();
-const USDBTCPriceMock = {
-  rate_float: 1.234,
-  code: 'USD',
-  description: 'USD price of bitcoin',
-  rate: (1.234).toLocaleString('en-US', {
-    style: 'currency',
-    currency: 'USD',
-  }),
-};
 
 class MockActivatedRoute {
   snapshot = {

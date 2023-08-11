@@ -2,7 +2,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Component } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { Account, ColumnTemplate, USDBTCPrice } from '@fortris-cc/types';
+import { Account, AccountFieldsNames, ColumnTemplate, USDBTCPrice } from '@fortris-cc/types';
 import { BreadcrumbService } from '../../breadcrumb/services/breadcrumb.service';
 import { TrackerService } from '../../../services/tracker.service';
 
@@ -22,7 +22,7 @@ export class AccountComponent {
     { name: 'balance', template: 'btcUsdTemplate' },
     { name: 'available_balance', template: 'btcUsdTemplate' },
   ];
-  displayedColumns: { [key: string]: string } = {
+  displayedColumns: typeof AccountFieldsNames = {
     account_name: 'Account Name',
     category: 'Category',
     tag: 'Tags',
@@ -30,6 +30,7 @@ export class AccountComponent {
     available_balance: 'Available Balance',
   };
   USDBTCPrice: USDBTCPrice | null = null;
+  prueba: number = 0;
 
   constructor(
     private trackerService: TrackerService,
@@ -41,11 +42,10 @@ export class AccountComponent {
       this.dataSource = data['accounts'] as Account[];
     });
 
-    this.USDBTCPriceSubscription = this.trackerService.USDBTCPrice$.subscribe(
-      (price) => {
-        this.USDBTCPrice = price;
-      }
-    );
+    this.trackerService.getUSDBTCPriceMessage();
+    this.USDBTCPriceSubscription = this.trackerService.USDBTCPrice$.subscribe((price: USDBTCPrice) => {
+      this.USDBTCPrice = price;
+    });
 
     this.breadcrumbService.buildBreacrumPathBasedInRouter(this.router);
   }
