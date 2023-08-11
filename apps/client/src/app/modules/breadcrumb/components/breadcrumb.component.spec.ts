@@ -1,11 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BreadcrumbComponent } from './breadcrumb.component';
-import { BreadcrumbService } from '../../services/breadcrumb.service';
-import { Observable, ReplaySubject, pipe, startWith } from 'rxjs';
-import { BreadcrumbPath } from '@fortris-cc/types';
-import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { BreadcrumbPath } from '@fortris-cc/types';
+import { Observable, startWith } from 'rxjs';
+import { BreadcrumbService } from '../services/breadcrumb.service';
+import { BreadcrumbComponent } from './breadcrumb.component';
 
 const breadcrumbPath = [
   { path: '', alias: 'Home' },

@@ -6,10 +6,11 @@ import {
   NavigationEnd,
   Router,
   RouterEvent,
+  RouterState,
   convertToParamMap,
 } from '@angular/router';
 import { ReplaySubject } from 'rxjs';
-import { BreadcrumbComponent } from '../breadcrumb/breadcrumb.component';
+import { BreadcrumbComponent } from '../../breadcrumb/components/breadcrumb.component';
 
 const eventSubject = new ReplaySubject<RouterEvent>();
 const title = 'Accounts';
@@ -22,10 +23,10 @@ const routerMock = {
       root: {
         data: {
           title,
-        }
-      }
-    }
-  }
+        },
+      },
+    },
+  },
 };
 
 class MockActivatedRoute {
@@ -47,9 +48,13 @@ describe('HeaderComponent', () => {
         { provide: ActivatedRoute, useClass: MockActivatedRoute },
       ],
     });
+    router = TestBed.inject(Router);
     fixture = TestBed.createComponent(HeaderComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+  });
+
+  beforeEach(() => {
   });
 
   describe('WHEN on init', () => {
@@ -57,6 +62,39 @@ describe('HeaderComponent', () => {
       eventSubject.next(new NavigationEnd(1, '/accounts', '/accounts'));
 
       expect(component.title).toBe(title);
+    });
+
+    it('THEN if title is not defined in route data SHOULD be set according to route.firstChild', () => {
+      const mockRouterState = {
+        snapshot: {
+          root: {
+            data: {},
+            firstChild: {
+              data: {
+                title,
+              },
+            },
+          },
+        },
+      };
+      jest.replaceProperty(router, 'routerState', mockRouterState as any);
+      eventSubject.next(new NavigationEnd(1, '/accounts', '/accounts'));
+    
+      expect(component.title).toBe(title);
+    });
+   
+    it('THEN if title is not defined neither in route data nor firstChild SHOULD return empty', () => {
+      const mockRouterState = {
+        snapshot: {
+          root: {
+            data: {},
+          },
+        },
+      };
+      jest.replaceProperty(router, 'routerState', mockRouterState as any);
+      eventSubject.next(new NavigationEnd(1, '/accounts', '/accounts'));
+    
+      expect(component.title).toBe('');
     });
   });
 });

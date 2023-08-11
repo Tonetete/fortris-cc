@@ -18,7 +18,7 @@ import { TrackerService } from '../../../../services/tracker.service';
   standalone: true,
 })
 export class BtcUsdCellTemplateComponent {
-  @Input() element: number | undefined;
+  @Input() element: number = 0.0;
   USDBTCPrice: USDBTCPrice | null = null;
 
   constructor(private trackerService: TrackerService) {

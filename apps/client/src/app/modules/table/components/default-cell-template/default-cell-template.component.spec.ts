@@ -8,14 +8,18 @@ describe('DefaultCellTemplateComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [DefaultCellTemplateComponent]
+      imports: [DefaultCellTemplateComponent]
     });
     fixture = TestBed.createComponent(DefaultCellTemplateComponent);
     component = fixture.componentInstance;
+    component.element = 'content example';
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  describe('WHEN on init', () => {
+    it('THEN default template SHOULD be rendered correctly', () => {
+      const div = fixture.nativeElement.querySelector('div');
+      expect(div.textContent).toBe(' content example ');
+    });
   });
 });
