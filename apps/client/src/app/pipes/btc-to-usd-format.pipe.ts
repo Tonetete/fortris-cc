@@ -25,7 +25,7 @@ export class BtcToUsdFormatPipe implements PipeTransform {
       case 'USD':
         const currencyPipe = new CurrencyPipe('en-US');
         formatValue = currencyPipe.transform(
-          (usdToBtcData.rate_float || 1) * (value || 0),
+          (usdToBtcData.rate_float) * (value || 0),
           'USD',
           'symbol',
           '.1-2'

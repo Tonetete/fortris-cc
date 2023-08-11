@@ -1,8 +1,8 @@
+import { USDBTCPrice } from '@fortris-cc/types';
+import { Logger } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { TrackerGateway } from './tracker.gateway';
 import { TrackerService } from './tracker.service';
-import { USDBTCPrice } from '@fortris-cc/types';
-import { Logger } from '@nestjs/common';
 
 class TrackerServiceMock {
   getBTCToUSDPrice(): USDBTCPrice {
@@ -75,6 +75,28 @@ describe('TrackerGateway', () => {
         description: '',
         rate: '$1,230.00',
       });
+    });
+  });
+  
+  describe('WHEN handleConnection', () => {
+    it('THEN log for connected client SHOULD be logged', () => {
+      const log = jest.spyOn(trackerGateway['logger'], 'log');
+      trackerGateway.handleConnection({
+        id: '123',
+      });
+      expect(log).toHaveBeenCalledWith('connection', 
+      `Connected to Tracker Websocket Server 123`);
+    });
+  });
+  
+  describe('WHEN handleConnection', () => {
+    it('THEN log for connected client SHOULD be logged', () => {
+      const log = jest.spyOn(trackerGateway['logger'], 'log');
+      trackerGateway.handleDisconnect({
+        id: '123',
+      });
+      expect(log).toHaveBeenCalledWith( 
+      `Disconnected from Tracker Websocket Server 123`);
     });
   });
 });

@@ -28,8 +28,7 @@ export class FlashRowStyleBTCTrackingDirective implements OnChanges {
       },
     } = changes;
     if (currentUSDBTCPrice && previousUSDBTCPrice) {
-      this.previousUSDBTCPrice = previousUSDBTCPrice;
-      this.setFlashClassToTrRows();
+      this.setFlashClassToTrRows(previousUSDBTCPrice);
     }
   }
 
@@ -37,11 +36,11 @@ export class FlashRowStyleBTCTrackingDirective implements OnChanges {
     this.trs = this.el.nativeElement.querySelectorAll('tbody tr');
   }
 
-  private setFlashClassToTrRows() {
+  private setFlashClassToTrRows(previousUSDBTCPrice: USDBTCPrice) {
     this.trs.forEach((tr) => {
       if (
         (this.USDBTCPrice?.rate_float || 0) >
-        ((this.previousUSDBTCPrice || { rate_float: 0 }).rate_float || 0)
+        (previousUSDBTCPrice.rate_float || 0)
       ) {
         this.renderer.addClass(tr, 'increase');
       } else {

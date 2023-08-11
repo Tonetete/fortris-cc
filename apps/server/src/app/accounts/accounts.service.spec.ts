@@ -82,10 +82,9 @@ describe('AccountService', () => {
   describe('remove', () => {
     it('SHOULD remove an account WHEN function is called for an account id', async () => {
       const account = getAccounts()[0];
-      await service.remove(account._id);
-      const result = await service.findOne(account._id);
+      const result = await service.remove(account._id);
 
-      expect(result).toBe(null);
+      expect(result.deletedCount).toBe(1);
     });
   });
 });

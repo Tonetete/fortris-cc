@@ -11,7 +11,6 @@ import { getAccountUrlById, getAccountsBaseUrl, getTransactionsUrlByAccountId } 
 export class AccountService {
 
   constructor(private http: HttpClient) { 
-    this.fetchAccounts$();
   }
 
   fetchAccounts$(): Observable<Account[]> {

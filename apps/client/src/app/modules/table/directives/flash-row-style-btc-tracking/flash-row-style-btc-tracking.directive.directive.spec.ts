@@ -34,7 +34,7 @@ describe('FlashRowStyleBTCTrackingDirective', () => {
   let testComponent: TestComponent;
 
   beforeEach(() => {
-    // jest.useFakeTimers();
+    jest.useFakeTimers();
     TestBed.configureTestingModule({
       declarations: [TestComponent, FlashRowStyleBTCTrackingDirective],
     });
@@ -48,7 +48,7 @@ describe('FlashRowStyleBTCTrackingDirective', () => {
   });
 
   afterEach(() => {
-    // jest.clearAllTimers();
+    jest.clearAllTimers();
   });
 
   describe('WHEN USDBTCPrice changes', () => {
@@ -86,7 +86,7 @@ describe('FlashRowStyleBTCTrackingDirective', () => {
       expect(trs[0].classList.contains('decrease')).toBe(true);
     });
 
-    it('THEN after DELAY_BACKGROUND_COLOR_CHANGE time has passed css classes SHOULD be removed', (done) => {
+    it('THEN after DELAY_BACKGROUND_COLOR_CHANGE time has passed css classes SHOULD be removed', () => {
       const timeout = DELAY_BACKGROUND_COLOR_CHANGE;
 
       const USDBTCPriceMockIncrease = {
@@ -104,12 +104,8 @@ describe('FlashRowStyleBTCTrackingDirective', () => {
       const trs = fixture.nativeElement.querySelectorAll('tr');
       expect(trs[0].classList.contains('increase')).toBe(true);
 
-      // jest.advanceTimersByTime(timeout);
+      jest.advanceTimersByTime(timeout);
 
-      // setTimeout(() => {
-      //   expect(trs[0].classList.contains('increase')).toBe(false);
-      //   done();
-      // }, timeout);
       expect(trs[0].classList.contains('increase')).toBe(false);
     });
   });

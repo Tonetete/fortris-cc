@@ -25,6 +25,7 @@ class MockActivatedRoute {
 }
 
 class TrackerServiceMock {
+  getUSDBTCPriceMessage = jest.fn();
   USDBTCPrice$ = new Observable<USDBTCPrice>().pipe(startWith(USDBTCPriceMock));
 }
 

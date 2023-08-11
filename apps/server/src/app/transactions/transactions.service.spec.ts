@@ -99,18 +99,18 @@ describe('TransactionsService', () => {
         balance: 2.0,
         created_at: new Date(),
       };
-      
-      await service.create(payload);
 
-      const result = await service.findOne(payload._id);
+      const transactionCreated = await service.create(payload);
 
-      expect(result.transaction_type).toBe(payload.transaction_type);
-      expect(result.debit).toBe(payload.debit);
-      expect(result.credit).toBe(payload.credit);
-      expect(result.balance).toBe(payload.balance);
+      expect(transactionCreated.transaction_type).toBe(
+        payload.transaction_type
+      );
+      expect(transactionCreated.debit).toBe(payload.debit);
+      expect(transactionCreated.credit).toBe(payload.credit);
+      expect(transactionCreated.balance).toBe(payload.balance);
     });
   });
-  
+
   describe('findByAccountId', () => {
     it('SHOULD return all transactions WHEN function is called for an account id', async () => {
       const accounts = getAccounts();
@@ -137,7 +137,6 @@ describe('TransactionsService', () => {
     });
   });
 
-
   describe('update', () => {
     it('SHOULD update a transactions WHEN function is called for a transaction id', async () => {
       const transaction = getTransactions()[0];
@@ -162,10 +161,9 @@ describe('TransactionsService', () => {
   describe('remove', () => {
     it('SHOULD remove a transactions WHEN function is called for a transaction id', async () => {
       const transaction = getTransactions()[0];
-      await service.remove(transaction._id);
-      const result = await service.findOne(transaction._id);
+      const result = await service.remove(transaction._id);
 
-      expect(result).toBe(null);
+      expect(result.deletedCount).toBe(1);
     });
   });
 });
